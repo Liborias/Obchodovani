@@ -1,0 +1,22 @@
+nav {
+  color: white;
+  background-color: gray;
+  font-size: 12px;
+  font-weight: 300;
+  display: flex;
+  justify-content: space-around;
+}
+
+.content {
+  color: black;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 300;
+  display: flex;
+  justify-content: space-around;
+}
+
+.pageNav {
+  display: flex;
+  justify-content: center;
+};
