@@ -12,6 +12,7 @@ function App() {
         </p>
         <Button color="primary">Hello World</Button>
       </header>
+      <div className="pageNav"><PageNav /></div>
     </div>
   );
 }
