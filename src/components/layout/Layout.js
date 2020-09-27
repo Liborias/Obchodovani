@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./Layout.css";
 import Homepage from "../homepage/Homepage"
+import Trading from "../trading/Trading"
 
 
 const Layout = () => (
