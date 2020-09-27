@@ -1,0 +1,25 @@
+.stock {
+    width: 400px;
+
+}
+
+.stockAmount {
+    width: 40px;
+
+}
+
+.stockPrice {
+    width: 60px;
+
+
+}
+
+.buyDate {
+    width: 60px;
+    
+}
+
+
+th {
+padding: 0 40px;
+}

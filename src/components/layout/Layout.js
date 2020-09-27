@@ -7,8 +7,8 @@ import Trading from "../trading/Trading"
 
 const Layout = () => (
 
-  <div>
-     <nav>
+  <div>             
+    <nav>
       <ul>
         <li>
           <Link to="/">Aktuální portfolio</Link>
@@ -18,18 +18,19 @@ const Layout = () => (
         </li>
       </ul>
     </nav>
+
     <div className="content">
       <Switch>
+      <Route path="/trading">
+        <Trading />
+        </Route>
         <Route path="/">
         <Homepage />
         </Route>
-        <Route path="/trading">
-        <Trading />
-        </Route>
       </Switch>
-    </div>
-
+    </div>   
   </div>
+
 );
 
 export default Layout;
