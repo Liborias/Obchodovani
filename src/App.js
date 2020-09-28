@@ -5,15 +5,15 @@ import Layout from "./components/layout/Layout"
 
 function App() {
   return (
-        <Router>
+    <Router>
       <div className="mainAAAA">
-          <Route path="/">
-            <Layout />
-          </Route>
+        <Route path="/">
+          <Layout />
+        </Route>
       </div>
     </Router>
 
-  )       
+  )
 }
 
 
