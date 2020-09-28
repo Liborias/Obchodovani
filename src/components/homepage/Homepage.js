@@ -8,9 +8,8 @@ const Homepage = () => (
     <h2>Homepage</h2>
     <Button color="primary">Hello World</Button>
     <table>
-      <ul>
-        <tr>        
-          <th className="stock">
+      <tr>
+        <th className="stock">
           Akcie
         </th>
         <th className="stockAmount">
@@ -22,9 +21,8 @@ const Homepage = () => (
         <th className="buyDate">
           Datum nákupu
         </th>
-        </tr>
+      </tr>
 
-      </ul>
     </table>
   </>
 );

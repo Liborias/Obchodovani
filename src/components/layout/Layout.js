@@ -7,7 +7,7 @@ import Trading from "../trading/Trading"
 
 const Layout = () => (
 
-  <div>             
+  <div>
     <nav>
       <ul>
         <li>
@@ -21,14 +21,14 @@ const Layout = () => (
 
     <div className="content">
       <Switch>
-      <Route path="/trading">
-        <Trading />
+        <Route path="/trading">
+          <Trading />
         </Route>
         <Route path="/">
-        <Homepage />
+          <Homepage />
         </Route>
       </Switch>
-    </div>   
+    </div>
   </div>
 
 );
