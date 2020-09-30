@@ -1,25 +1,6 @@
-.stock {
-    width: 400px;
-
-}
-
-.stockAmount {
-    width: 40px;
-
-}
-
-.stockPrice {
-    width: 60px;
-
-
-}
-
-.buyDate {
-    width: 60px;
-    
-}
-
-
-th {
-padding: 0 40px;
+.homePageContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

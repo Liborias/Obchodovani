@@ -4,10 +4,12 @@ nav {
   font-size: 12px;
   font-weight: 300;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.content {
+/* .content {
   color: black;
   background-color: white;
   font-size: 14px;
@@ -16,6 +18,4 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-
+} */

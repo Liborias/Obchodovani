@@ -7,7 +7,7 @@ import Trading from "../trading/Trading"
 
 const Layout = () => (
 
-  <div>
+  <div className="allContent">
     <nav>
       <ul>
         <li>
