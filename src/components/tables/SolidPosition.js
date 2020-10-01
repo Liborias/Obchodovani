@@ -1,6 +1,5 @@
 import React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import CurrencyInput from 'react-currency-input';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
