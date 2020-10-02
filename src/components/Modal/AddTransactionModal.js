@@ -4,10 +4,12 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
-export default function AdTransactionModal(props) {
+export default function AddTransactionModal(props) {
 
   const [newRow, setNewRow] = React.useState(
     {
@@ -20,31 +22,35 @@ export default function AdTransactionModal(props) {
     }
   );
 
-
-
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Nový obchod</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Vyplňte všechna pole formuláře.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
+          <InputLabel id="ticker-label">Zkratka společnosti</InputLabel>
+          <Select
+            labelId="ticker-label"
             id="ticker"
-            label="Zkratka společnosti (ticker)"
-            type="text"
-            fullWidth
-            onChange={(e) => setNewRow({ ...newRow, shortcut: e.target.value })}
+            onChange={(e) => {
+              const ticker = e.target.value;
+              const selectedCompany = props.companies.find((company) => ticker === company.ticker)
 
-          />
+
+              setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany.companyName })
+            }}
+          >{props.companies.map((company) => {
+            return < MenuItem value={company.ticker}>{company.ticker}</MenuItem>
+          })}
+
+
+          </Select>
           <TextField
             autoFocus
             margin="dense"
             id="companyName"
             label="Název společnosti"
+            disabled
+            value={newRow.companyName}
             type="text"
             fullWidth
             onChange={(e) => setNewRow({ ...newRow, companyName: e.target.value })}
@@ -77,6 +83,6 @@ export default function AdTransactionModal(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   );
 }
