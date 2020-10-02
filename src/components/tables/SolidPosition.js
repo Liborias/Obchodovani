@@ -26,15 +26,11 @@ const columns = [
 
 ];
 
-const rows = [{ id: 1, companyName: 'First Majestic Silver Corp.', shortcut: 'AG', amount: 35, stockPrice: 13.15, buyDate: "30.7.2019" },
-
-];
-
 
 export default function DataTable(props) {
     return (
         <div style={{ height: 400, width: '100%' }}>
-            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+            <DataGrid rows={props.rows} columns={columns} pageSize={5} checkboxSelection />
         </div>
     );
 }
