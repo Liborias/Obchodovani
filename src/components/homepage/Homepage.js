@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DataTable from "../tables/SolidPosition";
 import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
@@ -11,7 +11,8 @@ const rows = [
     shortcut: 'AG',
     amount: 35,
     stockPrice: 13.15,
-    buyDate: "30.7.2019"
+    buyDate: "30.7.2019",
+    longevity: "float"
   },
 ];
 
@@ -22,10 +23,11 @@ const defaultCompanies = [
   }
 ];
 const Homepage = () => {
-  const [open, setOpen] = React.useState(false);
-  const [openNewCompany, setOpenNewCompany] = React.useState(false);
-  const [dataRows, setDataRows] = React.useState(rows);
-  const [companies, setCompany] = React.useState(defaultCompanies);
+  const [open, setOpen] = useState(false);
+  const [openNewCompany, setOpenNewCompany] = useState(false);
+  const [dataRows, setDataRows] = useState(rows);
+  const [companies, setCompany] = useState(defaultCompanies);
+  const [longevity, setLongevity] = useState("float");
 
 
 
@@ -46,12 +48,12 @@ const Homepage = () => {
   };
 
   const handleSave = (newRow) => {
-    setDataRows([...rows, newRow]);
+    setDataRows([...dataRows, newRow]);
     setOpen(false);
   };
 
   const newCompanySave = (newCompanyRow) => {
-    setCompany([...defaultCompanies, newCompanyRow]);
+    setCompany([...companies, newCompanyRow]);
     setOpenNewCompany(false);
   };
 

@@ -1,0 +1,8 @@
+.tradeSelectors {
+  display: flex;
+  justify-content: left;
+}
+
+.particularSelector {
+  margin-right: 30px;
+}

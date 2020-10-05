@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import "./Modals.css";
 
 export default function AddTransactionModal(props) {
 
@@ -18,32 +19,51 @@ export default function AddTransactionModal(props) {
       shortcut: '',
       amount: null,
       stockPrice: null,
-      buyDate: "10.9.2020"
+      buyDate: "10.9.2020",
+      longevity: "float"
     }
   );
 
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Nový obchod</DialogTitle>
+        <DialogTitle id="formDialogTitle">Nový obchod</DialogTitle>
         <DialogContent>
-          <InputLabel id="ticker-label">Zkratka společnosti</InputLabel>
-          <Select
-            labelId="ticker-label"
-            id="ticker"
-            onChange={(e) => {
-              const ticker = e.target.value;
-              const selectedCompany = props.companies.find((company) => ticker === company.ticker)
+          <div className="tradeSelectors">
+            <div className="particularSelector">
+              <InputLabel id="tickerLabel">Zkratka společnosti</InputLabel>
+              <Select
+                labelId="tickerLabel"
+                id="ticker"
+                onChange={(e) => {
+                  const ticker = e.target.value;
+                  const selectedCompany = props.companies.find((company) => ticker === company.ticker)
 
 
-              setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany.companyName })
-            }}
-          >{props.companies.map((company) => {
-            return < MenuItem value={company.ticker}>{company.ticker}</MenuItem>
-          })}
+                  setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany.companyName })
+                }}
+              >{props.companies.map((company) => {
+                return < MenuItem value={company.ticker}>{company.ticker}</MenuItem>
+              })}
 
+                <Button onClick={props.handleNewCompOpen} color="primary">
+                  Add Company
+          </Button>
+              </Select>
+            </div>
+            <div>
+              <InputLabel id="longevityLabel">Pozice</InputLabel>
+              <Select
+                labelId="longevityLabel"
+                id="longevitySelect"
+                onChange={(e) => setNewRow({ ...newRow, longevity: e.target.value })}
+              >
+                <MenuItem value={"float"}>Plovoucí</MenuItem>
+                <MenuItem value={"solid"}>Pevná</MenuItem>
 
-          </Select>
+              </Select>
+            </div>
+          </div>
           <TextField
             autoFocus
             margin="dense"
@@ -77,9 +97,6 @@ export default function AddTransactionModal(props) {
         <DialogActions>
           <Button onClick={props.handleClose} color="primary">
             Cancel
-          </Button>
-          <Button onClick={props.handleNewCompOpen} color="primary">
-            Add Company
           </Button>
           <Button onClick={() => props.handleSave(newRow)} color="primary">
             Save
