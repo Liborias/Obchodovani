@@ -78,6 +78,9 @@ export default function AddTransactionModal(props) {
           <Button onClick={props.handleClose} color="primary">
             Cancel
           </Button>
+          <Button onClick={props.handleNewCompOpen} color="primary">
+            Add Company
+          </Button>
           <Button onClick={() => props.handleSave(newRow)} color="primary">
             Save
           </Button>
