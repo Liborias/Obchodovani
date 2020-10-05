@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./Layout.css";
-import Homepage from "../homepage/Homepage"
-import Trading from "../trading/Trading"
+import Homepage from "../homepage/Homepage";
+import Trading from "../trading/Trading";
 
 
 const Layout = () => (
@@ -13,10 +13,10 @@ const Layout = () => (
         <nav>
           <ul>
             <li>
-              <Link to="/">Aktuální portfolio</Link>
+              <Link to="/" className="linkStyle">Aktuální portfolio</Link>
             </li>
             <li>
-              <Link to="/trading">Historie obchodů</Link>
+              <Link to="/trading" className="linkStyle">Historie obchodů</Link>
             </li>
           </ul>
         </nav>

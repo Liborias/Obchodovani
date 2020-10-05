@@ -10,6 +10,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import "./Modals.css";
 
+
 export default function AddTransactionModal(props) {
 
   const [newRow, setNewRow] = React.useState(

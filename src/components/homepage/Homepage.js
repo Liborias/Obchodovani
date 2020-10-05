@@ -3,6 +3,7 @@ import DataTable from "../tables/Position";
 import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
 import NewCompanyModal from "../Modal/NewCompanyModal";
+import "./Homepage.css"
 
 const rows = [
   {
@@ -27,8 +28,6 @@ const Homepage = () => {
   const [openNewCompany, setOpenNewCompany] = useState(false);
   const [dataRows, setDataRows] = useState(rows);
   const [companies, setCompany] = useState(defaultCompanies);
-  const [longevity, setLongevity] = useState("Plovoucí krátkodobá");
-
 
 
   const handleClickOpen = () => {
@@ -63,6 +62,7 @@ const Homepage = () => {
     <>
       <div className="homePageContent">
         <h2>Aktuální portfolio</h2>
+        <h3>Pevné pozice</h3>
         <Button color="primary" onClick={handleClickOpen}>Nový obchod</Button>
         {open && <AddTransactionModal
           open={open}
@@ -78,7 +78,9 @@ const Homepage = () => {
           newCompanySave={newCompanySave}
           companies={companies}
         />
-        <DataTable rows={dataRows} />
+        <DataTable rows={dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
+        <h3>Plovoucí pozice</h3>
+        <DataTable rows={dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
       </div>
     </>
   );
