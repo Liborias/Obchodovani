@@ -20,7 +20,7 @@ export default function AddTransactionModal(props) {
       amount: null,
       stockPrice: null,
       buyDate: "10.9.2020",
-      longevity: "float"
+      longevity: "Plovoucí krátkodobá"
     }
   );
 
@@ -58,8 +58,10 @@ export default function AddTransactionModal(props) {
                 id="longevitySelect"
                 onChange={(e) => setNewRow({ ...newRow, longevity: e.target.value })}
               >
-                <MenuItem value={"float"}>Plovoucí</MenuItem>
-                <MenuItem value={"solid"}>Pevná</MenuItem>
+                <MenuItem value={"Plovoucí krátkodobá"}>Plovoucí krátkodobá</MenuItem>
+                <MenuItem value={"Pevná střednědobá"}>Pevná střednědobá</MenuItem>
+                <MenuItem value={"Pevná dlouhodobá"}>Pevná dlouhodobá</MenuItem>
+
 
               </Select>
             </div>

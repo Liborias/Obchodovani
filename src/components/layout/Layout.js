@@ -8,16 +8,19 @@ import Trading from "../trading/Trading"
 const Layout = () => (
   <Router>
     <div className="allContent">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Aktuální portfolio</Link>
-          </li>
-          <li>
-            <Link to="/trading">Historie obchodů</Link>
-          </li>
-        </ul>
-      </nav>
+      <div className="navigator">
+
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Aktuální portfolio</Link>
+            </li>
+            <li>
+              <Link to="/trading">Historie obchodů</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
       <div className="content">
         <Switch>

@@ -1,21 +1,27 @@
-nav {
-  color: white;
-  background-color: gray;
-  font-size: 12px;
-  font-weight: 300;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* .content {
+.content {
+  margin: 0 10%;
   color: black;
   background-color: white;
   font-size: 14px;
   font-weight: 300;
+}
+
+.navigator {
+  background-color: gray;
+}
+
+nav {
+  text-decoration: "inherit";
+  color: "inherit";
+  margin: 0 10%;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
+  justify-content: right;
+}
+
+li {
+  margin-bottom: 5px;
+}

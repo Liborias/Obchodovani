@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DataTable from "../tables/SolidPosition";
+import DataTable from "../tables/Position";
 import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
 import NewCompanyModal from "../Modal/NewCompanyModal";
@@ -12,7 +12,7 @@ const rows = [
     amount: 35,
     stockPrice: 13.15,
     buyDate: "30.7.2019",
-    longevity: "float"
+    longevity: "Plovoucí krátkodobá"
   },
 ];
 
@@ -27,7 +27,7 @@ const Homepage = () => {
   const [openNewCompany, setOpenNewCompany] = useState(false);
   const [dataRows, setDataRows] = useState(rows);
   const [companies, setCompany] = useState(defaultCompanies);
-  const [longevity, setLongevity] = useState("float");
+  const [longevity, setLongevity] = useState("Plovoucí krátkodobá");
 
 
 
