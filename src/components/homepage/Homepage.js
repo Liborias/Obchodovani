@@ -23,70 +23,36 @@ const defaultCompanies = [
     companyName: 'First Majestic Silver Corp.'
   }
 ];
-const Homepage = () => {
-  const [open, setOpen] = useState(false);
-  const [openNewCompany, setOpenNewCompany] = useState(false);
-  const [dataRows, setDataRows] = useState(rows);
-  const [companies, setCompany] = useState(defaultCompanies);
-
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleNewCompOpen = () => {
-    setOpenNewCompany(true);
-  };
-
-  const handleNewCompClose = () => {
-    setOpenNewCompany(false);
-  };
-
-  const handleSave = (newRow) => {
-    setDataRows([...dataRows, newRow]);
-    setOpen(false);
-  };
-
-  const newCompanySave = (newCompanyRow) => {
-    setCompany([...companies, newCompanyRow]);
-    setOpenNewCompany(false);
-  };
-
-
+const Homepage = (props) => {
 
   return (
     <>
       <div className="homePageContent">
         <h2>Aktuální portfolio</h2>
+        <Button color="primary" onClick={props.handleClickOpen}>Nový obchod</Button>
         <h3>Pevné pozice</h3>
-        <Button color="primary" onClick={handleClickOpen}>Nový obchod</Button>
-        {open && <AddTransactionModal
-          open={open}
-          handleClose={handleClose}
-          handleSave={handleSave}
-          handleNewCompOpen={handleNewCompOpen}
-          companies={companies}
+
+        {props.open && <AddTransactionModal
+          open={props.open}
+          handleClose={props.handleClose}
+          handleSave={props.handleSave}
+          handleNewCompOpen={props.handleNewCompOpen}
+          companies={props.companies}
         />}
-        <Button color="primary" onClick={handleNewCompOpen}>Nová společnost</Button>
         <NewCompanyModal
-          open={openNewCompany}
-          handleNewCompClose={handleNewCompClose}
-          newCompanySave={newCompanySave}
-          companies={companies}
+          open={props.openNewCompany}
+          handleNewCompClose={props.handleNewCompClose}
+          newCompanySave={props.newCompanySave}
+          companies={props.companies}
         />
-        <DataTable rows={dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
+        <DataTable rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
         <h3>Plovoucí pozice</h3>
-        <DataTable rows={dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
+        <DataTable rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
       </div>
     </>
   );
 
-
-
 };
-
 export default Homepage;
+
+

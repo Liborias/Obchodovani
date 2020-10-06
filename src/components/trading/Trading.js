@@ -1,10 +1,14 @@
 import React from "react";
-import { Button } from '@material-ui/core';
+import DataTable from "../tables/Position";
 
-const Trading = () => (
+
+
+const Trading = (props) => (
+
   <>
-    <h2>Trading</h2>
-    <Button color="primary">Hello World</Button>
+
+    <h1>Historie obchodů</h1>
+    <DataTable rows={props.dataRows} />
   </>
 );
 

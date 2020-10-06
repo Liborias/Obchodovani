@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Layout from "../layout/Layout";
+import DataTable from "../tables/Position";
+import Homepage from "./homepage/Homepage"
 
 const Business = () => (
   <>
 
-    <h1>Portfolio</h1>
+    <h1>Historie obchodů</h1>
+    <DataTable rows={Homepage.dataRows} />
   </>
 );
 
