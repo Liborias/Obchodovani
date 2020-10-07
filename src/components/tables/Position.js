@@ -3,7 +3,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import "./Position.css"
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
+    //{ field: 'id', headerName: 'ID', width: 70 },
     { field: 'shortcut', headerName: 'Zkratka', width: 100 },
     { field: 'companyName', headerName: 'Jméno společnosti', width: 300 },
     {
@@ -27,6 +27,12 @@ const columns = [
     {
         field: 'longevity',
         headerName: 'Pozice',
+
+        width: 200,
+    },
+    {
+        field: 'freeRide',
+        headerName: 'Free Ride',
 
         width: 200,
     },
