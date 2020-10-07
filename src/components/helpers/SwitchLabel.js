@@ -1,10 +1,12 @@
 import React from 'react';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-export default function SwitchLabel(props) {
+export default function SwitchLabels(props) {
     const [state, setState] = React.useState({
-        checkedA: false,
+        checkedA: true,
+        checkedB: true,
     });
 
     const handleChange = (event) => {
@@ -12,11 +14,26 @@ export default function SwitchLabel(props) {
     };
 
     return (
-        <FormControlLabel
-            control={<Switch checked={state.checkedA} onChange={handleChange} name="checkedA" color="primary" />}
-            label={props.switchLableName}
-            labelPlacement="top"
-        />
-
+        <FormGroup row>
+            <FormControlLabel
+                control={<Switch checked={state.checkedA} onChange={handleChange} name="checkedA" />}
+                label="Secondary"
+            />
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={state.checkedB}
+                        onChange={handleChange}
+                        name="checkedB"
+                        color="primary"
+                    />
+                }
+                label={props.switchLableName}
+                labelPlacement="top"
+            />
+            <FormControlLabel control={<Switch />} label="Uncontrolled" />
+            <FormControlLabel disabled control={<Switch />} label="Disabled" />
+            <FormControlLabel disabled control={<Switch checked />} label="Disabled" />
+        </FormGroup>
     );
 }

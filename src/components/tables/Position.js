@@ -31,7 +31,7 @@ const columns = [
         width: 200,
     },
     {
-        field: 'freeRide',
+        field: 'freeRideLabel',
         headerName: 'Free Ride',
 
         width: 200,

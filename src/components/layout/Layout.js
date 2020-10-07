@@ -20,7 +20,8 @@ const rows = [
     stockPrice: 13.15,
     buyDate: "30.7.2019",
     longevity: "Plovoucí krátkodobá",
-    freeRide: false
+    freeRide: false,
+    freeRideLabel: "NE"
   },
 ];
 
