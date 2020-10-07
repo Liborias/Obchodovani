@@ -7,7 +7,7 @@ const Trading = (props) => (
 
   <>
 
-    <h1>Historie obchodů</h1>
+    <h2>Historie obchodů</h2>
     <DataTable rows={props.dataRows} />
   </>
 );
