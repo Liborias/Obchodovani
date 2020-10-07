@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import "./Modals.css";
+import SwitchLabel from "../helpers/SwitchLabel";
+
 
 
 export default function AddTransactionModal(props) {
@@ -21,7 +23,8 @@ export default function AddTransactionModal(props) {
       amount: null,
       stockPrice: null,
       buyDate: "10.9.2020",
-      longevity: "Plovoucí krátkodobá"
+      longevity: "Plovoucí krátkodobá",
+      freeRide: false
     }
   );
 
@@ -65,7 +68,11 @@ export default function AddTransactionModal(props) {
 
 
               </Select>
+
             </div>
+            <SwitchLabel value="checkedA" switchLableName="Free ride"
+              onChange={(e) => setNewRow({ ...newRow, freeRide: e.target.value })} />
+
           </div>
           <TextField
             autoFocus

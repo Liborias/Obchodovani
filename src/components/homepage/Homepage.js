@@ -1,28 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import DataTable from "../tables/Position";
 import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
 import NewCompanyModal from "../Modal/NewCompanyModal";
 import "./Homepage.css"
 
-const rows = [
-  {
-    id: 1,
-    companyName: 'First Majestic Silver Corp.',
-    shortcut: 'AG',
-    amount: 35,
-    stockPrice: 13.15,
-    buyDate: "30.7.2019",
-    longevity: "Plovoucí krátkodobá"
-  },
-];
-
-const defaultCompanies = [
-  {
-    ticker: 'AG',
-    companyName: 'First Majestic Silver Corp.'
-  }
-];
 const Homepage = (props) => {
 
   return (

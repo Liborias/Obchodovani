@@ -4,6 +4,12 @@ import "./Layout.css";
 import Homepage from "../homepage/Homepage";
 import Trading from "../trading/Trading";
 
+/*
+zadáním nové společnosti se rovnou vyplní políčka
+přidat switcher pro free ride
+přidat datum
+nezobrazovat ID
+*/
 
 const rows = [
   {
@@ -13,7 +19,8 @@ const rows = [
     amount: 35,
     stockPrice: 13.15,
     buyDate: "30.7.2019",
-    longevity: "Plovoucí krátkodobá"
+    longevity: "Plovoucí krátkodobá",
+    freeRide: false
   },
 ];
 

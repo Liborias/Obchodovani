@@ -1,6 +1,6 @@
 .tradeSelectors {
   display: flex;
-  justify-content: left;
+  justify-content: space-around;
 }
 
 .particularSelector {
