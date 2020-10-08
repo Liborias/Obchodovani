@@ -9,16 +9,33 @@ import Switch from '@material-ui/core/Switch';
 import "./Homepage.css"
 
 const Homepage = (props) => {
+
   const [switches, setSwitchRideColumn] = React.useState({
     freeRideLabel: true
   })
-  const [newColumns, setNewColumns] = React.useState(columns)
 
+  const [newColumns, setNewColumns] = React.useState(columns)
+  const [workColumn, setWorkColumn] = React.useState(false)
+
+
+  // const handleChange = (event) => {
+  //   setSwitchRideColumn({ ...switches, [event.target.name]: event.target.checked });
+  //   if (switches[event.target.name]) { setNewColumns(columns.filter(x => x.field !== event.target.name)) } else { setNewColumns(columns) };
+
+  // };setNewRow({ ...newRow, companyName: e.target.value })
 
   const handleChange = (event) => {
-    setSwitchRideColumn({ ...switches, [event.target.name]: event.target.checked });
-    //if (switches[event.target.name]) { setNewColumns(columns.filter(x => x.field !== event.target.name)) } else { setNewColumns(columns) }
-  };
+    const updated = newColumns.map(item => item.field === event.target.name ? { ...item, visible: true } : item);
+    setNewColumns(updated);
+  }
+
+  const findChecked = (event) => {
+    const state = newColumns.find(item => item.field === event.target.name);
+    return state
+
+  }
+
+
 
   return (
     <>
@@ -30,7 +47,7 @@ const Homepage = (props) => {
           <FormControlLabel
             control={
               <Switch
-                checked={switches.freeRideLabel}
+                checked={findChecked}
                 onChange={handleChange}
                 name="freeRideLabel"
                 color="primary"
