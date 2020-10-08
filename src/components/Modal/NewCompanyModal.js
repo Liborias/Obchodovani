@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,6 +16,26 @@ export default function NewCompanyModal(props) {
     }
   );
 
+  const [isTickerValid, setTickerValidity] = useState(false);
+
+  const [isCompanyValid, setCompanyValidity] = useState(false);
+
+
+
+  const validateTicker = (ticker) => {
+    setTickerValidity(true);
+    if (!ticker.includes("")) {
+      setTickerValidity(false);
+    }
+  };
+
+  const validateCompany = (company) => {
+    setCompanyValidity(true);
+    if (!company.includes("")) {
+      setCompanyValidity(false);
+    }
+  };
+
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleNewCompClose} aria-labelledby="form-dialog-title">
@@ -28,7 +48,10 @@ export default function NewCompanyModal(props) {
             label="Zkratka společnosti"
             type="text"
             fullWidth
-            onChange={(e) => setCompanyNewRow({ ...newCompanyRow, ticker: e.target.value })}
+            onChange={(e) => {
+              setCompanyNewRow({ ...newCompanyRow, ticker: e.target.value });
+              validateTicker(e.target.value)
+            }}
           />
           <TextField
             autoFocus
@@ -37,7 +60,10 @@ export default function NewCompanyModal(props) {
             label="Název společnosti"
             type="text"
             fullWidth
-            onChange={(e) => setCompanyNewRow({ ...newCompanyRow, companyName: e.target.value })}
+            onChange={(e) => {
+              setCompanyNewRow({ ...newCompanyRow, companyName: e.target.value });
+              validateCompany(e.target.value)
+            }}
           />
 
         </DialogContent>
@@ -45,7 +71,7 @@ export default function NewCompanyModal(props) {
           <Button onClick={props.handleNewCompClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => props.newCompanySave(newCompanyRow)} color="primary">
+          <Button disabled={!isTickerValid || !isCompanyValid} onClick={() => props.newCompanySave(newCompanyRow)} color="primary">
             Save
           </Button>
         </DialogActions>

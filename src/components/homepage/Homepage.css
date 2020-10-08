@@ -2,3 +2,8 @@ h2,
 h3 {
   padding-left: 6px;
 }
+
+.tableMenu {
+  display: flex;
+  justify-content: space-between;
+}

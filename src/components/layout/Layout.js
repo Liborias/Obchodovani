@@ -72,14 +72,11 @@ const Layout = () => {
         <div className="navigator">
 
           <nav>
-            <ul>
-              <li>
-                <Link to="/" className="linkStyle">Aktuální portfolio</Link>
-              </li>
-              <li>
-                <Link to="/trading" className="linkStyle">Historie obchodů</Link>
-              </li>
-            </ul>
+
+            <Link to="/" className="linkStyle">Aktuální portfolio</Link>
+
+            <Link to="/trading" className="linkStyle">Historie obchodů</Link>
+
           </nav>
         </div>
 
