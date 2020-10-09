@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,17 +18,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default function AddTransactionModal(props) {
 
-  const [isTickerValid, setTickerValidity] = useState(false);
-  const [isLongevityValid, setLongevityValidity] = useState(false);
-  const [isAmountValid, setAmountValidity] = useState(false);
-  const [isPriceValid, setPriceValidity] = useState(false);
+  const [isTransactionValid, setTransactionValidity] = useState(false);
+
   const [newRow, setNewRow] = useState(
     {
       id: Math.round(Math.random() * 1000000000),
       companyName: "",
       shortcut: "",
-      amount: null,
-      stockPrice: null,
+      amount: 0,
+      stockPrice: 0,
       buyDate: new Date(),
       longevity: "",
       freeRide: false,
@@ -37,32 +35,18 @@ export default function AddTransactionModal(props) {
   );
 
 
-  const validateTicker = (ticker) => {
-    setTickerValidity(true);
-    if (!ticker?.includes("")) {
-      setTickerValidity(false);
-    }
+  const validateTransaction = () => {
+
+    const { companyName, shortcut, amount, stockPrice, buyDate, longevity } = newRow;
+    setTransactionValidity(true);
+    if (!companyName?.length || !shortcut?.length || !buyDate?.length || !longevity?.length || amount <= 0 || stockPrice <= 0) {
+
+      setTransactionValidity(false);
+    };
+
   };
 
-  const validateLongevity = (longevity) => {
-    setLongevityValidity(true);
-    if (!longevity.includes("")) {
-      setLongevityValidity(false);
-    }
-  };
-
-  const validateAmount = (amount) => {
-    setAmountValidity(true);
-    if (!amount > 0) {
-      setAmountValidity(false);
-    }
-  };
-  const validatPrice = (price) => {
-    setPriceValidity(true);
-    if (!price > 0) {
-      setPriceValidity(false);
-    }
-  };
+  useEffect(() => { validateTransaction() }, [newRow]);
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -107,7 +91,6 @@ export default function AddTransactionModal(props) {
                   const selectedCompany = props.companies.find((company) => ticker === company.ticker)
 
                   setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany?.companyName });
-                  validateTicker(e.target.value);
                 }}
               >{props.companies.map((company) => {
                 return < MenuItem value={company.ticker}>{company.ticker}</MenuItem>
@@ -126,7 +109,6 @@ export default function AddTransactionModal(props) {
                 value={newRow.longevity}
                 onChange={(e) => {
                   setNewRow({ ...newRow, longevity: e.target.value });
-                  validateLongevity(e.target.value);
                 }
                 }
               >
@@ -188,7 +170,6 @@ export default function AddTransactionModal(props) {
             fullWidth
             onChange={(e) => {
               setNewRow({ ...newRow, amount: e.target.value });
-              validateAmount(e.target.value)
             }}
           />
           <TextField
@@ -201,7 +182,6 @@ export default function AddTransactionModal(props) {
             fullWidth
             onChange={(e) => {
               setNewRow({ ...newRow, stockPrice: e.target.value });
-              validatPrice(e.target.value)
             }}
           />
         </DialogContent>
@@ -219,7 +199,7 @@ export default function AddTransactionModal(props) {
           <Button onClick={props.handleClose} color="primary">
             Cancel
           </Button>
-          <Button type="submit" disabled={!isTickerValid || !isLongevityValid || !isAmountValid || !isPriceValid} onClick={() => {
+          <Button type="submit" disabled={!isTransactionValid} onClick={() => {
             onClickAct();
             props.handleSave(newRow);
           }
