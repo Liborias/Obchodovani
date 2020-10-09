@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import NewCompanyModal from "../Modal/NewCompanyModal";
 import "./Modals.css";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -24,12 +25,12 @@ export default function AddTransactionModal(props) {
   const [newRow, setNewRow] = useState(
     {
       id: Math.round(Math.random() * 1000000000),
-      companyName: '',
-      shortcut: '',
+      companyName: "",
+      shortcut: "",
       amount: null,
       stockPrice: null,
-      buyDate: "10.9.2020",
-      longevity: "Plovoucí krátkodobá",
+      buyDate: new Date(),
+      longevity: "",
       freeRide: false,
       freeRideLabel: "NE"
     }
@@ -38,7 +39,7 @@ export default function AddTransactionModal(props) {
 
   const validateTicker = (ticker) => {
     setTickerValidity(true);
-    if (!ticker.includes("")) {
+    if (!ticker?.includes("")) {
       setTickerValidity(false);
     }
   };
@@ -100,10 +101,10 @@ export default function AddTransactionModal(props) {
               <Select
                 labelId="tickerLabel"
                 id="ticker"
+                value={newRow.shortcut}
                 onChange={(e) => {
                   const ticker = e.target.value;
                   const selectedCompany = props.companies.find((company) => ticker === company.ticker)
-
 
                   setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany?.companyName });
                   validateTicker(e.target.value);
@@ -122,6 +123,7 @@ export default function AddTransactionModal(props) {
               <Select
                 labelId="longevityLabel"
                 id="longevitySelect"
+                value={newRow.longevity}
                 onChange={(e) => {
                   setNewRow({ ...newRow, longevity: e.target.value });
                   validateLongevity(e.target.value);
@@ -156,7 +158,7 @@ export default function AddTransactionModal(props) {
             id="date"
             label="Datum transakce"
             type="date"
-            defaultValue="Datum transakce"
+            value={newRow.buyDate}
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -181,6 +183,7 @@ export default function AddTransactionModal(props) {
             margin="dense"
             id="amount"
             label="Množství akcií"
+            value={newRow.amount}
             type="number"
             fullWidth
             onChange={(e) => {
@@ -193,6 +196,7 @@ export default function AddTransactionModal(props) {
             margin="dense"
             id="price"
             label="Cena 1. akcie"
+            value={newRow.stockPrice}
             type="number"
             fullWidth
             onChange={(e) => {
@@ -201,6 +205,16 @@ export default function AddTransactionModal(props) {
             }}
           />
         </DialogContent>
+        <NewCompanyModal
+          open={props.openNewCompany}
+          handleNewCompClose={props.handleNewCompClose}
+          newCompanySave={(newAddedCompany) => {
+            props.newCompanySave(newAddedCompany);
+            setNewRow({ ...newRow, companyName: newAddedCompany.companyName, shortcut: newAddedCompany.ticker });
+          }
+          }
+          companies={props.companies}
+        />
         <DialogActions>
           <Button onClick={props.handleClose} color="primary">
             Cancel

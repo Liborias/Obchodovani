@@ -2,7 +2,6 @@ import React from "react";
 import DataTable from "../tables/Position";
 import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
-import NewCompanyModal from "../Modal/NewCompanyModal";
 import { columns } from "../tables/dataPositions";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -48,19 +47,18 @@ const Homepage = (props) => {
           handleNewCompOpen={props.handleNewCompOpen}
           companies={props.companies}
           company={props.company}
-        />}
-        <NewCompanyModal
-          open={props.openNewCompany}
+          openNewCompany={props.openNewCompany}
           handleNewCompClose={props.handleNewCompClose}
           newCompanySave={props.newCompanySave}
-          companies={props.companies}
-        />
+        />}
+
         <DataTable columns={visibleColumns} rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
         <h3>Plovoucí pozice</h3>
         <DataTable columns={visibleColumns} rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
       </div>
     </>
   );
+
 
 };
 export default Homepage;
