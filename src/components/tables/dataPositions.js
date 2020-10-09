@@ -1,10 +1,10 @@
 export const columns = [
-    /*{ 
-        field: 'id', 
-        headerName: 'ID', 
+    {
+        field: 'id',
+        headerName: 'ID',
         width: 70,
         visible: false,
-     },*/
+    },
     {
         field: 'shortcut',
         headerName: 'Zkratka',

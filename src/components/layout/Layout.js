@@ -37,8 +37,7 @@ const Layout = () => {
   const [open, setOpen] = useState(false);
   const [openNewCompany, setOpenNewCompany] = useState(false);
   const [dataRows, setDataRows] = useState(rows);
-  const [companies, setCompany] = useState(defaultCompanies);
-
+  const [companies, setCompanies] = useState(defaultCompanies);
 
 
   const handleClickOpen = () => {
@@ -63,7 +62,7 @@ const Layout = () => {
   };
 
   const newCompanySave = (newCompanyRow) => {
-    setCompany([...companies, newCompanyRow]);
+    setCompanies([...companies, newCompanyRow]);
     setOpenNewCompany(false);
   };
   return (

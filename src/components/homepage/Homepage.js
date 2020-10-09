@@ -10,32 +10,14 @@ import "./Homepage.css"
 
 const Homepage = (props) => {
 
-  const [switches, setSwitchRideColumn] = React.useState({
-    freeRideLabel: true
-  })
+  const [newColumns, setNewColumns] = React.useState(columns);
+  const visibleColumns = newColumns.filter(column => column.visible);
 
-  const [newColumns, setNewColumns] = React.useState(columns)
-  const [workColumn, setWorkColumn] = React.useState(false)
-
-
-  // const handleChange = (event) => {
-  //   setSwitchRideColumn({ ...switches, [event.target.name]: event.target.checked });
-  //   if (switches[event.target.name]) { setNewColumns(columns.filter(x => x.field !== event.target.name)) } else { setNewColumns(columns) };
-
-  // };setNewRow({ ...newRow, companyName: e.target.value })
 
   const handleChange = (event) => {
-    const updated = newColumns.map(item => item.field === event.target.name ? { ...item, visible: true } : item);
+    const updated = newColumns.map(item => item.field === event.target.name ? { ...item, visible: event.target.checked } : item);
     setNewColumns(updated);
   }
-
-  const findChecked = (event) => {
-    const state = newColumns.find(item => item.field === event.target.name);
-    return state
-
-  }
-
-
 
   return (
     <>
@@ -47,7 +29,8 @@ const Homepage = (props) => {
           <FormControlLabel
             control={
               <Switch
-                checked={findChecked}
+                // defaultChecked={true} nekontrolovaný stav
+                checked={newColumns.find(item => item.field === "freeRideLabel")?.visible}
                 onChange={handleChange}
                 name="freeRideLabel"
                 color="primary"
@@ -64,6 +47,7 @@ const Homepage = (props) => {
           handleSave={props.handleSave}
           handleNewCompOpen={props.handleNewCompOpen}
           companies={props.companies}
+          company={props.company}
         />}
         <NewCompanyModal
           open={props.openNewCompany}
@@ -71,9 +55,9 @@ const Homepage = (props) => {
           newCompanySave={props.newCompanySave}
           companies={props.companies}
         />
-        <DataTable columns={newColumns} rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
+        <DataTable columns={visibleColumns} rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
         <h3>Plovoucí pozice</h3>
-        <DataTable columns={newColumns} rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
+        <DataTable columns={visibleColumns} rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
       </div>
     </>
   );

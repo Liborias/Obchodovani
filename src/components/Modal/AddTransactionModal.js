@@ -21,6 +21,19 @@ export default function AddTransactionModal(props) {
   const [isLongevityValid, setLongevityValidity] = useState(false);
   const [isAmountValid, setAmountValidity] = useState(false);
   const [isPriceValid, setPriceValidity] = useState(false);
+  const [newRow, setNewRow] = useState(
+    {
+      id: Math.round(Math.random() * 1000000000),
+      companyName: '',
+      shortcut: '',
+      amount: null,
+      stockPrice: null,
+      buyDate: "10.9.2020",
+      longevity: "Plovoucí krátkodobá",
+      freeRide: false,
+      freeRideLabel: "NE"
+    }
+  );
 
 
   const validateTicker = (ticker) => {
@@ -64,19 +77,7 @@ export default function AddTransactionModal(props) {
 
   const classes = useStyles();
 
-  const [newRow, setNewRow] = useState(
-    {
-      id: Math.round(Math.random() * 1000000000),
-      companyName: '',
-      shortcut: '',
-      amount: null,
-      stockPrice: null,
-      buyDate: "10.9.2020",
-      longevity: "Plovoucí krátkodobá",
-      freeRide: false,
-      freeRideLabel: "NE"
-    }
-  );
+
 
   const handleChange = (event) => {
     const freeRideLabel = event.target.checked ? "ANO" : "NE";
@@ -104,7 +105,7 @@ export default function AddTransactionModal(props) {
                   const selectedCompany = props.companies.find((company) => ticker === company.ticker)
 
 
-                  setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany.companyName });
+                  setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany?.companyName });
                   validateTicker(e.target.value);
                 }}
               >{props.companies.map((company) => {
