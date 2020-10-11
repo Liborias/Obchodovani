@@ -5,7 +5,13 @@ import "./Position.css"
 export default function DataTable(props) {
     return (
         <div className="companyTable">
-            <DataGrid rows={props.rows} columns={props.columns} pageSize={5} checkboxSelection />
+            <DataGrid
+                rows={props.rows}
+                columns={props.columns}
+                pageSize={5}
+                checkboxSelection
+                onSelectionChange={(param) => console.log(param)}
+            />
         </div>
     );
 }
