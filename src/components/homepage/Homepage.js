@@ -52,10 +52,16 @@ const Homepage = (props) => {
           newCompanySave={props.newCompanySave}
         />}
 
-        <DataTable columns={visibleColumns} rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")} />
+        <DataTable
+          columns={visibleColumns}
+          rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")}
+          handleClickOpen={props.handleClickOpen} />
         <h3>Plovoucí pozice</h3>
-        <Button color="primary" onClick={props.handleClickOpen}>Upravit</Button>
-        <DataTable columns={visibleColumns} rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")} />
+
+        <DataTable
+          columns={visibleColumns}
+          rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")}
+          handleClickOpen={props.handleClickOpen} />
       </div>
     </>
   );

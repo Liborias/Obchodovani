@@ -8,33 +8,26 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import NewCompanyModal from "../Modal/NewCompanyModal";
+import NewCompanyModal from "./NewCompanyModal";
 import "./Modals.css";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
-import { format } from "date-fns";
 
 
 
-export default function AddTransactionModal(props) {
+export default function EditTransactionModal(props) {
 
   const [isTransactionValid, setTransactionValidity] = useState(false);
-
-  const date = new Date("2020-10-13");
-
-
-  console.log(date);
-
 
   const [newRow, setNewRow] = useState(
     {
       id: Math.round(Math.random() * 1000000000),
       companyName: "",
       shortcut: "",
-      amount: "",
-      stockPrice: "",
-      buyDate: date,
+      amount: 0,
+      stockPrice: 0,
+      buyDate: new Date(),
       longevity: "",
       freeRide: false,
       freeRideLabel: "NE"
@@ -46,7 +39,7 @@ export default function AddTransactionModal(props) {
 
     const { companyName, shortcut, amount, stockPrice, buyDate, longevity } = newRow;
     setTransactionValidity(true);
-    if (!companyName?.length || !shortcut?.length || !buyDate?.length || !longevity?.length || amount === "" || amount <= 0 || stockPrice === "" || stockPrice <= 0) {
+    if (!companyName?.length || !shortcut?.length || !buyDate?.length || !longevity?.length || amount <= 0 || stockPrice <= 0) {
 
       setTransactionValidity(false);
     };
@@ -155,6 +148,7 @@ export default function AddTransactionModal(props) {
             onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
           />
 
+
           <TextField
             autoFocus
             margin="dense"
@@ -215,9 +209,6 @@ export default function AddTransactionModal(props) {
           </Button>
         </DialogActions>
       </Dialog>
-
     </div >
-
   );
-
 }

@@ -23,11 +23,28 @@ const rows = [
     freeRide: false,
     freeRideLabel: "NE"
   },
+  {
+    id: 2,
+    companyName: 'MAG Silver Corp.',
+    shortcut: 'MAG',
+    amount: 300,
+    stockPrice: 12.50,
+    buyDate: "30.7.2019",
+    longevity: "Plovoucí krátkodobá",
+    freeRide: false,
+    freeRideLabel: "NE"
+  },
 ];
+
+
 
 const defaultCompanies = [
   {
     ticker: 'AG',
+    companyName: 'MAG Silver Corp.'
+  },
+  {
+    ticker: 'MAG',
     companyName: 'First Majestic Silver Corp.'
   }
 ];

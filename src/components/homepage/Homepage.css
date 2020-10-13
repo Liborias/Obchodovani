@@ -7,3 +7,7 @@ h3 {
   display: flex;
   justify-content: space-between;
 }
+
+.tableWithTitle {
+  margin-top: 70px;
+}
