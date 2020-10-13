@@ -50,18 +50,40 @@ const Homepage = (props) => {
           openNewCompany={props.openNewCompany}
           handleNewCompClose={props.handleNewCompClose}
           newCompanySave={props.newCompanySave}
+          initialNewRow={props.initialNewRow}
         />}
 
         <DataTable
           columns={visibleColumns}
           rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")}
-          handleClickOpen={props.handleClickOpen} />
-        <h3>Plovoucí pozice</h3>
+          handleClickOpen={props.handleClickOpen}
+          open={props.open}
+          handleClose={props.handleClose}
+          handleSave={props.handleSave}
+          handleNewCompOpen={props.handleNewCompOpen}
+          companies={props.companies}
+          company={props.company}
+          openNewCompany={props.openNewCompany}
+          handleNewCompClose={props.handleNewCompClose}
+          newCompanySave={props.newCompanySave}
+        />
+        <div className="tableWithTitle">
+          <h3>Plovoucí pozice</h3>
 
-        <DataTable
-          columns={visibleColumns}
-          rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")}
-          handleClickOpen={props.handleClickOpen} />
+          <DataTable
+            columns={visibleColumns}
+            rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")}
+            handleClickOpen={props.handleClickOpen}
+            open={props.open}
+            handleClose={props.handleClose}
+            handleSave={props.handleSave}
+            handleNewCompOpen={props.handleNewCompOpen}
+            companies={props.companies}
+            company={props.company}
+            openNewCompany={props.openNewCompany}
+            handleNewCompClose={props.handleNewCompClose}
+            newCompanySave={props.newCompanySave} />
+        </div>
       </div>
     </>
   );

@@ -55,6 +55,17 @@ const Layout = () => {
   const [openNewCompany, setOpenNewCompany] = useState(false);
   const [dataRows, setDataRows] = useState(rows);
   const [companies, setCompanies] = useState(defaultCompanies);
+  const initialNewRow = {
+    id: Math.round(Math.random() * 1000000000),
+    companyName: "",
+    shortcut: "",
+    amount: "",
+    stockPrice: "",
+    buyDate: "",
+    longevity: "",
+    freeRide: false,
+    freeRideLabel: "NE"
+  };
 
 
   const handleClickOpen = () => {
@@ -115,6 +126,7 @@ const Layout = () => {
                 newCompanySave={newCompanySave}
                 companies={companies}
                 dataRows={dataRows}
+                initialNewRow={initialNewRow}
               />
             </Route>
           </Switch>

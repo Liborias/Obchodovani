@@ -13,7 +13,6 @@ import "./Modals.css";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
-import { format } from "date-fns";
 
 
 
@@ -21,25 +20,13 @@ export default function AddTransactionModal(props) {
 
   const [isTransactionValid, setTransactionValidity] = useState(false);
 
-  const date = new Date("2020-10-13");
+  //const date = new Date("2020-10-13");
 
 
-  console.log(date);
+  //console.log(date);
 
 
-  const [newRow, setNewRow] = useState(
-    {
-      id: Math.round(Math.random() * 1000000000),
-      companyName: "",
-      shortcut: "",
-      amount: "",
-      stockPrice: "",
-      buyDate: date,
-      longevity: "",
-      freeRide: false,
-      freeRideLabel: "NE"
-    }
-  );
+  const [newRow, setNewRow] = useState(props.initialNewRow);
 
 
   const validateTransaction = () => {
