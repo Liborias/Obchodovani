@@ -89,15 +89,7 @@ const Layout = () => {
   };
 
 
-  // const move = (selected = rows, newPosition = "Pevná dlouhodobá") => {
-  //   console.log("selected", selected);
-  //   const selectedIds = selected?.map((item) => item.id);
-  //   const updatedPosition = dataRows?.map((item) => selectedIds.includes(item.id) ? { ...item, longevity: newPosition } : item);
-  //   setDataRows(updatedPosition);
-  // };
-
   const move = (selected, newPosition) => {
-    console.log("selected", selected);
     const selectedIds = selected?.map((item) => item.id);
     const updatedPosition = dataRows?.map((item) => selectedIds.includes(item.id) ? { ...item, longevity: newPosition } : item);
     setDataRows(updatedPosition);
@@ -129,7 +121,6 @@ const Layout = () => {
               />
             </Route>
             <Route path="/">
-              <button onClick={() => move()}>Move</button>
               <Homepage
                 open={open}
                 openNewCompany={openNewCompany}
