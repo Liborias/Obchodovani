@@ -82,9 +82,18 @@ const Layout = () => {
     if (hledaneID !== -1) {
       const updated = dataRows?.map(item => item.id === newRow.id ? newRow : item);
       setDataRows(updated);
-    } else { setDataRows([...dataRows, newRow]); }
+    } else {
+      setDataRows([...dataRows, newRow]);
+    }
+    //setOpen(false);
+  };
 
-    setOpen(false);
+
+  const move = (selected = rows, newPosition = "Pevná dlouhodobá") => {
+    console.log("selected", selected);
+    const selectedIds = selected?.map((item) => item.id);
+    const updatedPosition = dataRows?.map((item) => selectedIds.includes(item.id) ? { ...item, longevity: newPosition } : item);
+    setDataRows(updatedPosition);
   };
 
   const newCompanySave = (newCompanyRow) => {
@@ -113,6 +122,7 @@ const Layout = () => {
               />
             </Route>
             <Route path="/">
+              <button onClick={() => move()}>Move</button>
               <Homepage
                 open={open}
                 openNewCompany={openNewCompany}
@@ -125,6 +135,7 @@ const Layout = () => {
                 companies={companies}
                 dataRows={dataRows}
               />
+
             </Route>
           </Switch>
         </div>

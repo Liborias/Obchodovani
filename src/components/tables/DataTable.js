@@ -2,15 +2,21 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { DataGrid } from '@material-ui/data-grid';
 import AddTransactionModal from "../Modal/AddTransactionModal";
+import EditPosition from "../Modal/EditPosition"
 import "./Position.css"
 
 export default function DataTable(props) {
 
     const [editedRow, setEditedRow] = React.useState([]);
     const [open, setOpen] = React.useState(false);
+    const [openEditPosition, setOpenEditPosition] = React.useState(false);
 
     const handleClose = () => {
         setOpen(false);
+    }
+
+    const handleCloseEditPosition = () => {
+        setOpenEditPosition(false);
     }
 
     return (
@@ -19,7 +25,7 @@ export default function DataTable(props) {
             <div>
                 {
                     editedRow?.length > 1 ?
-                        <Button color="primary" onClick={() => { }}>Přesunout</Button> :
+                        <Button color="primary" onClick={() => setOpenEditPosition(true)}>Přesunout</Button> :
                         <Button color="primary" disabled={editedRow.length === 0} onClick={() => setOpen(true)}>Upravit</Button>
                 }
             </div>
@@ -33,7 +39,6 @@ export default function DataTable(props) {
                 onSelectionChange={(param) => setEditedRow(param?.rows)}
             />
             {open && <AddTransactionModal
-                key={editedRow.id || "new"}
                 open={open}
                 handleClose={handleClose}
                 handleSave={props.handleSave}
@@ -44,6 +49,12 @@ export default function DataTable(props) {
                 handleNewCompClose={props.handleNewCompClose}
                 newCompanySave={props.newCompanySave}
                 initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
+            />}
+            {openEditPosition && <EditPosition
+                open={openEditPosition}
+                handleClose={handleCloseEditPosition}
+                handleSave={props.handleSave}
+                initialNewRow={editedRow}
             />}
         </div>
     );
