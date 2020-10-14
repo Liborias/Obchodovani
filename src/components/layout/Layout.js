@@ -55,18 +55,6 @@ const Layout = () => {
   const [openNewCompany, setOpenNewCompany] = useState(false);
   const [dataRows, setDataRows] = useState(rows);
   const [companies, setCompanies] = useState(defaultCompanies);
-  const initialNewRow = {
-    id: Math.round(Math.random() * 1000000000),
-    companyName: "",
-    shortcut: "",
-    amount: "",
-    stockPrice: "",
-    buyDate: "",
-    longevity: "",
-    freeRide: false,
-    freeRideLabel: "NE"
-  };
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -84,8 +72,18 @@ const Layout = () => {
     setOpenNewCompany(false);
   };
 
+  // const handleSave = (newRow) => {
+  //   setDataRows([...dataRows, newRow]);
+  //   setOpen(false);
+  // };
+
   const handleSave = (newRow) => {
-    setDataRows([...dataRows, newRow]);
+    const hledaneID = dataRows.findIndex((element) => element.id === newRow.id);
+    if (hledaneID !== -1) {
+      const updated = dataRows?.map(item => item.id === newRow.id ? newRow : item);
+      setDataRows(updated);
+    } else { setDataRows([...dataRows, newRow]); }
+
     setOpen(false);
   };
 
@@ -126,7 +124,6 @@ const Layout = () => {
                 newCompanySave={newCompanySave}
                 companies={companies}
                 dataRows={dataRows}
-                initialNewRow={initialNewRow}
               />
             </Route>
           </Switch>

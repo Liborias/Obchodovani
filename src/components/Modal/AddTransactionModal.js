@@ -19,14 +19,20 @@ import { makeStyles } from '@material-ui/core/styles';
 export default function AddTransactionModal(props) {
 
   const [isTransactionValid, setTransactionValidity] = useState(false);
+  const defaultRow = {
+    id: Math.round(Math.random() * 1000000000),
+    companyName: "",
+    shortcut: "",
+    amount: "",
+    stockPrice: "",
+    buyDate: "",
+    longevity: "",
+    freeRide: false,
+    freeRideLabel: "NE"
+  };
 
-  //const date = new Date("2020-10-13");
 
-
-  //console.log(date);
-
-
-  const [newRow, setNewRow] = useState(props.initialNewRow);
+  const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
 
 
   const validateTransaction = () => {
@@ -40,6 +46,7 @@ export default function AddTransactionModal(props) {
 
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { validateTransaction() }, [newRow]);
 
   const useStyles = makeStyles((theme) => ({
@@ -63,7 +70,7 @@ export default function AddTransactionModal(props) {
     setNewRow({ ...newRow, [event.target.name]: event.target.checked, freeRideLabel: freeRideLabel });
   };
 
-  const onClickAct = () => {
+  const setFreerideLabel = () => {
     newRow.freeRide ? setNewRow({ ...newRow, freeRideLabel: "ANO" }) : setNewRow({ ...newRow, freeRideLabel: "NE" });
   };
 
@@ -87,7 +94,7 @@ export default function AddTransactionModal(props) {
                   setNewRow({ ...newRow, shortcut: ticker, companyName: selectedCompany?.companyName });
                 }}
               >{props.companies.map((company) => {
-                return < MenuItem value={company.ticker}>{company.ticker}</MenuItem>
+                return <MenuItem key={company.ticker} value={company.ticker}>{company.ticker}</MenuItem>
               })}
 
                 <Button onClick={props.handleNewCompOpen} color="primary">
@@ -103,12 +110,11 @@ export default function AddTransactionModal(props) {
                 value={newRow.longevity}
                 onChange={(e) => {
                   setNewRow({ ...newRow, longevity: e.target.value });
-                }
-                }
+                }}
               >
-                <MenuItem value={"Plovoucí krátkodobá"}>Plovoucí krátkodobá</MenuItem>
-                <MenuItem value={"Pevná střednědobá"}>Pevná střednědobá</MenuItem>
-                <MenuItem value={"Pevná dlouhodobá"}>Pevná dlouhodobá</MenuItem>
+                <MenuItem key="plovouci_pozice" value={"Plovoucí krátkodobá"}>Plovoucí krátkodobá</MenuItem>
+                <MenuItem key="strednedoba_pozice" value={"Pevná střednědobá"}>Pevná střednědobá</MenuItem>
+                <MenuItem key="dlouhodoba_pozice" value={"Pevná dlouhodobá"}>Pevná dlouhodobá</MenuItem>
 
 
               </Select>
@@ -193,8 +199,9 @@ export default function AddTransactionModal(props) {
             Cancel
           </Button>
           <Button type="submit" disabled={!isTransactionValid} onClick={() => {
-            onClickAct();
+            setFreerideLabel();
             props.handleSave(newRow);
+            props.handleClose();
           }
           }
             color="primary">

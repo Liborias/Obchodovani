@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "../tables/Position";
+import DataTable from "../tables/DataTable";
 import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
 import { columns } from "../tables/dataPositions";
@@ -14,6 +14,7 @@ const Homepage = (props) => {
 
 
   const handleChange = (event) => {
+    console.log("handleChange");
     const updated = newColumns.map(item => item.field === event.target.name ? { ...item, visible: event.target.checked } : item);
     setNewColumns(updated);
   }
@@ -50,14 +51,13 @@ const Homepage = (props) => {
           openNewCompany={props.openNewCompany}
           handleNewCompClose={props.handleNewCompClose}
           newCompanySave={props.newCompanySave}
-          initialNewRow={props.initialNewRow}
         />}
 
         <DataTable
+          key="pevne"
           columns={visibleColumns}
           rows={props.dataRows.filter(position => position.longevity !== "Plovoucí krátkodobá")}
           handleClickOpen={props.handleClickOpen}
-          open={props.open}
           handleClose={props.handleClose}
           handleSave={props.handleSave}
           handleNewCompOpen={props.handleNewCompOpen}
@@ -71,10 +71,10 @@ const Homepage = (props) => {
           <h3>Plovoucí pozice</h3>
 
           <DataTable
+            key="plovouci"
             columns={visibleColumns}
             rows={props.dataRows.filter(position => position.longevity === "Plovoucí krátkodobá")}
             handleClickOpen={props.handleClickOpen}
-            open={props.open}
             handleClose={props.handleClose}
             handleSave={props.handleSave}
             handleNewCompOpen={props.handleNewCompOpen}

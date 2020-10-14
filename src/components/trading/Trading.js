@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "../tables/Position";
+import DataTable from "../tables/DataTable";
 import { columns } from "../tables/dataPositions";
 
 

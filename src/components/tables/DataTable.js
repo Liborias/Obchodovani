@@ -7,27 +7,35 @@ import "./Position.css"
 export default function DataTable(props) {
 
     const [editedRow, setEditedRow] = React.useState([]);
+    const [open, setOpen] = React.useState(false);
+
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     return (
 
         <div className="companyTable">
             <div>
-                {editedRow?.length > 1 ? <Button color="primary" onClick={props.handleClickOpen}>Přesunout</Button> : <Button color="primary" disabled={editedRow.length === 0} onClick={props.handleClickOpen}>Upravit</Button>}
+                {
+                    editedRow?.length > 1 ?
+                        <Button color="primary" onClick={() => { }}>Přesunout</Button> :
+                        <Button color="primary" disabled={editedRow.length === 0} onClick={() => setOpen(true)}>Upravit</Button>
+                }
             </div>
+
             <DataGrid
                 rows={props.rows}
                 columns={props.columns}
                 pageSize={5}
                 checkboxSelection
                 //onRowSelected={(param) => { setEditedRow(param); console.log(editedRow); }}
-                onSelectionChange={(param) => {
-                    setEditedRow(param?.rows);
-                    console.log(param)
-                }}
+                onSelectionChange={(param) => setEditedRow(param?.rows)}
             />
-            {props.open && <AddTransactionModal
-                open={props.open}
-                handleClose={props.handleClose}
+            {open && <AddTransactionModal
+                key={editedRow.id || "new"}
+                open={open}
+                handleClose={handleClose}
                 handleSave={props.handleSave}
                 handleNewCompOpen={props.handleNewCompOpen}
                 companies={props.companies}
@@ -35,7 +43,7 @@ export default function DataTable(props) {
                 openNewCompany={props.openNewCompany}
                 handleNewCompClose={props.handleNewCompClose}
                 newCompanySave={props.newCompanySave}
-                initialNewRow={editedRow}
+                initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
             />}
         </div>
     );
