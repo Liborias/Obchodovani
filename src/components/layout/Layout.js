@@ -41,11 +41,11 @@ const rows = [
 const defaultCompanies = [
   {
     ticker: 'AG',
-    companyName: 'MAG Silver Corp.'
+    companyName: 'First Majestic Silver Corp.'
   },
   {
     ticker: 'MAG',
-    companyName: 'First Majestic Silver Corp.'
+    companyName: 'MAG Silver Corp.'
   }
 ];
 
