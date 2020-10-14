@@ -66,6 +66,7 @@ const Homepage = (props) => {
           openNewCompany={props.openNewCompany}
           handleNewCompClose={props.handleNewCompClose}
           newCompanySave={props.newCompanySave}
+          move={props.move}
         />
         <div className="tableWithTitle">
           <h3>Plovoucí pozice</h3>
@@ -82,7 +83,9 @@ const Homepage = (props) => {
             company={props.company}
             openNewCompany={props.openNewCompany}
             handleNewCompClose={props.handleNewCompClose}
-            newCompanySave={props.newCompanySave} />
+            newCompanySave={props.newCompanySave}
+            move={props.move}
+          />
         </div>
       </div>
     </>

@@ -2,21 +2,21 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { DataGrid } from '@material-ui/data-grid';
 import AddTransactionModal from "../Modal/AddTransactionModal";
-import EditPosition from "../Modal/EditPosition"
+import MovePosition from "../Modal/MovePosition"
 import "./Position.css"
 
 export default function DataTable(props) {
 
     const [editedRow, setEditedRow] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const [openEditPosition, setOpenEditPosition] = React.useState(false);
+    const [openMovePosition, setMovePosition] = React.useState(false);
 
     const handleClose = () => {
         setOpen(false);
     }
 
-    const handleCloseEditPosition = () => {
-        setOpenEditPosition(false);
+    const handleCloseMovePosition = () => {
+        setMovePosition(false);
     }
 
     return (
@@ -25,7 +25,7 @@ export default function DataTable(props) {
             <div>
                 {
                     editedRow?.length > 1 ?
-                        <Button color="primary" onClick={() => setOpenEditPosition(true)}>Přesunout</Button> :
+                        <Button color="primary" onClick={() => setMovePosition(true)}>Přesunout</Button> :
                         <Button color="primary" disabled={editedRow.length === 0} onClick={() => setOpen(true)}>Upravit</Button>
                 }
             </div>
@@ -50,11 +50,11 @@ export default function DataTable(props) {
                 newCompanySave={props.newCompanySave}
                 initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
             />}
-            {openEditPosition && <EditPosition
-                open={openEditPosition}
-                handleClose={handleCloseEditPosition}
-                handleSave={props.handleSave}
-                initialNewRow={editedRow}
+            {openMovePosition && <MovePosition
+                open={openMovePosition}
+                handleClose={handleCloseMovePosition}
+                move={props.move}
+                selected={editedRow}
             />}
         </div>
     );
