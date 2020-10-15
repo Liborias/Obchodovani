@@ -49,6 +49,7 @@ export default function DataTable(props) {
                 handleNewCompClose={props.handleNewCompClose}
                 newCompanySave={props.newCompanySave}
                 initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
+                option="Editace pozice"
             />}
             {openMovePosition && <MovePosition
 

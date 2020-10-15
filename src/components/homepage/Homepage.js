@@ -14,7 +14,6 @@ const Homepage = (props) => {
 
 
   const handleChange = (event) => {
-    console.log("handleChange");
     const updated = newColumns.map(item => item.field === event.target.name ? { ...item, visible: event.target.checked } : item);
     setNewColumns(updated);
   }
@@ -51,6 +50,7 @@ const Homepage = (props) => {
           openNewCompany={props.openNewCompany}
           handleNewCompClose={props.handleNewCompClose}
           newCompanySave={props.newCompanySave}
+          option="new"
         />}
 
         <DataTable
