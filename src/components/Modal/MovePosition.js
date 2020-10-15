@@ -20,16 +20,16 @@ export default function MovePosition(props) {
 
 
   return (
-    <div>
+    <div >
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="formDialogTitle">Změna pozice</DialogTitle>
+        <DialogTitle id="formDialogTitle2">Změna pozice</DialogTitle>
         <DialogContent>
 
-          <div className="tradeSelectors">
-            <InputLabel id="longevityLabel">Pozice</InputLabel>
+          <div className="position">
+            <InputLabel id="longevityLabel2">Pozice</InputLabel>
             <Select
-              labelId="longevityLabel"
-              id="longevitySelect"
+              labelId="longevityLabel2"
+              className="longevitySelect"
               value={selected.longevity}
               onChange={(e) => {
                 setNewPosition(e.target.value);

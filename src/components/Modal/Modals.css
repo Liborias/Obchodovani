@@ -2,7 +2,56 @@
   display: flex;
   justify-content: space-between;
 }
+.position {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .particularSelector {
   margin-right: 30px;
+}
+
+#formDialogTitle2 {
+  padding-left: 1;
+}
+
+.longevitySelect {
+  width: 200px;
+}
+
+.amountAndPrice {
+  display: flex;
+  justify-content: space-between;
+}
+
+.amount .price {
+  width: 150px;
+  margin-right: 10px;
+}
+
+.buyDate {
+  margin-top: 10px;
+  position: relative;
+  left: -7px;
+}
+
+.noteFieldWraper {
+  margin-top: 28px;
+}
+
+#noteLabel {
+  margin-bottom: 6px;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  border-color: rgb(133, 133, 133);
+}
+
+.radioButtons {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-end;
 }

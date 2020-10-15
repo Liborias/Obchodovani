@@ -8,11 +8,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Switch from '@material-ui/core/Switch';
 import NewCompanyModal from "../Modal/NewCompanyModal";
 import "./Modals.css";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import { makeStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
 
 
 
@@ -28,7 +31,8 @@ export default function AddTransactionModal(props) {
     buyDate: "",
     longevity: "",
     freeRide: false,
-    freeRideLabel: "NE"
+    freeRideLabel: "NE",
+    note: ""
   };
 
 
@@ -64,6 +68,9 @@ export default function AddTransactionModal(props) {
   const classes = useStyles();
 
 
+  const [radiButtonValue, setRadiButtonValue] = React.useState("edit");
+
+  const changeRadiobutton = (event) => setRadiButtonValue(event.target.value);
 
   const handleChange = (event) => {
     const freeRideLabel = event.target.checked ? "ANO" : "NE";
@@ -77,8 +84,18 @@ export default function AddTransactionModal(props) {
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="formDialogTitle">Nový obchod</DialogTitle>
+        <DialogTitle id="formDialogTitle">Transakce</DialogTitle>
         <DialogContent>
+
+          {newRow.id > 0 ? <div className="radioButtons">
+            <FormControl component="fieldset">
+              <RadioGroup aria-label="whatToDo" name="whatToDo1" value={radiButtonValue} row onChange={changeRadiobutton}>
+                <FormControlLabel value="sell" control={<Radio />} label="Prodat" control={<Radio color="primary" onChange={() => { }} />} />
+                <FormControlLabel value="split" control={<Radio />} label="Rozdělit" control={<Radio color="primary" onChange={() => { }} />} />
+                <FormControlLabel value="edit" control={<Radio />} label="Editovat" control={<Radio color="primary" onChange={() => { }} />} />
+              </RadioGroup>
+            </FormControl>
+          </div> : <div className="radioButtons"></div>}
 
           <div className="tradeSelectors">
             <div className="particularSelector">
@@ -98,7 +115,7 @@ export default function AddTransactionModal(props) {
               })}
 
                 <Button onClick={props.handleNewCompOpen} color="primary">
-                  Add Company
+                  Přidat společnost
           </Button>
               </Select>
             </div>
@@ -106,7 +123,7 @@ export default function AddTransactionModal(props) {
               <InputLabel id="longevityLabel">Pozice</InputLabel>
               <Select
                 labelId="longevityLabel"
-                id="longevitySelect"
+                className="longevitySelect"
                 value={newRow.longevity}
                 onChange={(e) => {
                   setNewRow({ ...newRow, longevity: e.target.value });
@@ -136,22 +153,8 @@ export default function AddTransactionModal(props) {
           </div>
 
           <TextField
-            autoFocus
-            id="date"
-            label="Datum transakce"
-            type="date"
-            value={newRow.buyDate}
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
-          />
-
-          <TextField
-            autoFocus
             margin="dense"
-            id="companyName"
+            className="companyName"
             label="Název společnosti"
             disabled
             value={newRow.companyName}
@@ -159,30 +162,66 @@ export default function AddTransactionModal(props) {
             fullWidth
             onChange={(e) => setNewRow({ ...newRow, companyName: e.target.value })}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="amount"
-            label="Množství akcií"
-            value={newRow.amount}
-            type="number"
-            fullWidth
-            onChange={(e) => {
-              setNewRow({ ...newRow, amount: e.target.value });
-            }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="price"
-            label="Cena 1. akcie"
-            value={newRow.stockPrice}
-            type="number"
-            fullWidth
-            onChange={(e) => {
-              setNewRow({ ...newRow, stockPrice: e.target.value });
-            }}
-          />
+          <div className="buyDate">
+            <TextField
+              label="Datum transakce"
+              type="date"
+              value={newRow.buyDate}
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
+            />
+          </div>
+          <div className="amountAndPrice">
+            <div className="amount">
+              <TextField
+                margin="dense"
+                label="Množství akcií"
+                value={newRow.amount}
+                type="number"
+                fullWidth
+                onChange={(e) => {
+                  setNewRow({ ...newRow, amount: e.target.value });
+                }}
+              />
+            </div>
+
+            <div className="price">
+              <TextField
+                margin="dense"
+                className="price"
+                label="Cena za kus"
+                value={newRow.stockPrice}
+                type="number"
+                fullWidth
+                onChange={(e) => {
+                  setNewRow({ ...newRow, stockPrice: e.target.value });
+                }}
+              />
+            </div>
+          </div>
+          <div className="noteFieldWraper">
+
+
+
+            <div>
+              <InputLabel id="noteLabel">Poznámka:</InputLabel>
+              <textarea
+                className="noteField"
+                type="text"
+                name="textValue"
+                value={newRow.note}
+                rows={4}
+                maxLength="250"
+                onChange={(e) => {
+                  setNewRow({ ...newRow, note: e.target.value });
+                }}
+              />
+            </div>
+          </div>
+
         </DialogContent>
         <NewCompanyModal
           open={props.openNewCompany}
@@ -196,7 +235,7 @@ export default function AddTransactionModal(props) {
         />
         <DialogActions>
           <Button onClick={props.handleClose} color="primary">
-            Cancel
+            Zavřít
           </Button>
           <Button type="submit" disabled={!isTransactionValid} onClick={() => {
             setFreerideLabel();
@@ -205,7 +244,7 @@ export default function AddTransactionModal(props) {
           }
           }
             color="primary">
-            Save
+            Uložit
           </Button>
         </DialogActions>
       </Dialog>

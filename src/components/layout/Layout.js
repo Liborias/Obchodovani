@@ -21,7 +21,8 @@ const rows = [
     buyDate: "30.7.2019",
     longevity: "Plovoucí krátkodobá",
     freeRide: false,
-    freeRideLabel: "NE"
+    freeRideLabel: "NE",
+    note: "Zkušební transakce"
   },
   {
     id: 2,
@@ -32,7 +33,8 @@ const rows = [
     buyDate: "30.7.2019",
     longevity: "Plovoucí krátkodobá",
     freeRide: false,
-    freeRideLabel: "NE"
+    freeRideLabel: "NE",
+    note: "Zkušební transakce"
   },
 ];
 

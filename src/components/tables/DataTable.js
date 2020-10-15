@@ -51,6 +51,7 @@ export default function DataTable(props) {
                 initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
             />}
             {openMovePosition && <MovePosition
+
                 open={openMovePosition}
                 handleClose={handleCloseMovePosition}
                 move={props.move}
