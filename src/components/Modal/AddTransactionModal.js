@@ -32,12 +32,14 @@ export default function AddTransactionModal(props) {
     longevity: "",
     freeRide: false,
     freeRideLabel: "NE",
-    note: ""
+    note: "",
+    isSold: false
   };
 
 
   const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
   const [editOption, setEditOption] = useState(props.option);
+
 
 
   const validateTransaction = () => {
@@ -163,17 +165,54 @@ export default function AddTransactionModal(props) {
             fullWidth
             onChange={(e) => setNewRow({ ...newRow, companyName: e.target.value })}
           />
-          <div className="buyDate">
-            <TextField
-              label="Datum transakce"
-              type="date"
-              value={newRow.buyDate}
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
-            />
+          <div className="datesAndNewPosition">
+            {radiButtonValue === "Editace pozice" ?
+              <div className="buyDate">
+                <TextField
+                  label="Datum transakce"
+                  type="date"
+                  value={newRow.buyDate}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
+                />
+              </div> :
+              radiButtonValue === "Rozdělení pozice" ?
+                <div className="split">
+                  <div className="buyDate">
+                    <TextField
+                      label="Datum transakce"
+                      type="date"
+                      value={newRow.buyDate}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
+                    />
+                  </div>
+
+                  <div id="longevitySplit">
+                    <InputLabel id="longevityLabel">Nová pozice</InputLabel>
+                    <Select
+                      labelId="longevityLabel"
+                      className="longevitySelect"
+                      value={newRow.longevity}
+                      onChange={(e) => {
+                        setNewRow({ ...newRow, longevity: e.target.value });
+                      }}
+                    >
+                      <MenuItem key="plovouci_pozice" value={"Plovoucí krátkodobá"}>Plovoucí krátkodobá</MenuItem>
+                      <MenuItem key="strednedoba_pozice" value={"Pevná střednědobá"}>Pevná střednědobá</MenuItem>
+                      <MenuItem key="dlouhodoba_pozice" value={"Pevná dlouhodobá"}>Pevná dlouhodobá</MenuItem>
+
+
+                    </Select>
+                  </div>
+                </div> :
+                <div></div>}
           </div>
           <div className="amountAndPrice">
             <div className="amount">

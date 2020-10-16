@@ -22,7 +22,8 @@ const rows = [
     longevity: "Plovoucí krátkodobá",
     freeRide: false,
     freeRideLabel: "NE",
-    note: "Zkušební transakce"
+    note: "Zkušební transakce",
+    isSold: true
   },
   {
     id: 2,
@@ -34,7 +35,8 @@ const rows = [
     longevity: "Plovoucí krátkodobá",
     freeRide: false,
     freeRideLabel: "NE",
-    note: "Zkušební transakce"
+    note: "Zkušební transakce",
+    isSold: false
   },
 ];
 
