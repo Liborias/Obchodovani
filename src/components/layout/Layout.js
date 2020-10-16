@@ -23,7 +23,8 @@ const rows = [
     freeRide: false,
     freeRideLabel: "NE",
     note: "Zkušební transakce",
-    isSold: true
+    isSold: true,
+    soldDate: ""
   },
   {
     id: 2,
@@ -36,7 +37,8 @@ const rows = [
     freeRide: false,
     freeRideLabel: "NE",
     note: "Zkušební transakce",
-    isSold: false
+    isSold: false,
+    soldDate: ""
   },
 ];
 

@@ -33,7 +33,8 @@ export default function AddTransactionModal(props) {
     freeRide: false,
     freeRideLabel: "NE",
     note: "",
-    isSold: false
+    isSold: false,
+    soldDate: ""
   };
 
 
@@ -167,7 +168,7 @@ export default function AddTransactionModal(props) {
           />
           <div className="datesAndNewPosition">
             {radiButtonValue === "Editace pozice" ?
-              <div className="buyDate">
+              <div className="Date">
                 <TextField
                   label="Datum transakce"
                   type="date"
@@ -181,7 +182,7 @@ export default function AddTransactionModal(props) {
               </div> :
               radiButtonValue === "Rozdělení pozice" ?
                 <div className="split">
-                  <div className="buyDate">
+                  <div className="Date">
                     <TextField
                       label="Datum transakce"
                       type="date"
@@ -195,7 +196,7 @@ export default function AddTransactionModal(props) {
                   </div>
 
                   <div id="longevitySplit">
-                    <InputLabel id="longevityLabel">Nová pozice</InputLabel>
+                    <InputLabel id="longevityLabel">Nová ozice</InputLabel>
                     <Select
                       labelId="longevityLabel"
                       className="longevitySelect"
@@ -212,7 +213,33 @@ export default function AddTransactionModal(props) {
                     </Select>
                   </div>
                 </div> :
-                <div></div>}
+                <div className="soldPosition">
+                  <div className="Date">
+                    <TextField
+                      label="Datum transakce"
+                      type="date"
+                      value={newRow.buyDate}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => setNewRow({ ...newRow, buyDate: e.target.value })}
+                    />
+                  </div>
+
+                  <div className="Date">
+                    <TextField
+                      label="Datum prodeje"
+                      type="date"
+                      value={newRow.soldDate}
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => setNewRow({ ...newRow, soldDate: e.target.value })}
+                    />
+                  </div>
+                </div>}
           </div>
           <div className="amountAndPrice">
             <div className="amount">
