@@ -4,9 +4,16 @@
 }
 
 .split,
-.soldPosition {
+.soldPosition,
+.editPosition {
+  display: flex;
+  justify-content: space-between;
+}
+
+.datePriceAmountColumn {
   width: 300px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -32,7 +39,8 @@
   width: 200px;
 }
 
-.amountAndPrice {
+.amountAndPrice,
+.dateAndPrice {
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -67,4 +75,7 @@ textarea {
   margin-bottom: 50px;
   display: flex;
   justify-content: flex-end;
+}
+.freeRideSplit {
+  margin-top: 20px;
 }
