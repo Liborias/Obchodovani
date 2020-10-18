@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { DataGrid } from '@material-ui/data-grid';
 import AddTransactionModal from "../Modal/AddTransactionModal";
@@ -7,9 +7,9 @@ import "./Position.css"
 
 export default function DataTable(props) {
 
-    const [editedRow, setEditedRow] = React.useState([]);
-    const [open, setOpen] = React.useState(false);
-    const [openMovePosition, setMovePosition] = React.useState(false);
+    const [editedRow, setEditedRow] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [openMovePosition, setMovePosition] = useState(false);
 
     const handleClose = () => {
         setOpen(false);
@@ -50,8 +50,9 @@ export default function DataTable(props) {
                 openNewCompany={props.openNewCompany}
                 handleNewCompClose={props.handleNewCompClose}
                 newCompanySave={props.newCompanySave}
+                longevity={props.longevity}
                 initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
-                option={editedRow === [] ? "Editace pozice" : "new"}
+                option={editedRow?.length > 1 ? "move" : editedRow?.length < 1 ? "new" : "edit"}
             />}
             {openMovePosition && <MovePosition
 

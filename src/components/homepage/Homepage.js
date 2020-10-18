@@ -1,6 +1,5 @@
 import React from "react";
 import DataTable from "../tables/DataTable";
-import Button from '@material-ui/core/Button';
 import AddTransactionModal from "../Modal/AddTransactionModal";
 import { columns } from "../tables/dataPositions";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -22,7 +21,6 @@ const Homepage = (props) => {
     <>
       <div className="homePageContent">
         <h2>Aktuální portfolio</h2>
-        <Button color="primary" onClick={props.handleClickOpen}>Nový obchod</Button>
         <div className="tableMenu">
           <h3>Pevné pozice</h3>
           <FormControlLabel
@@ -66,6 +64,7 @@ const Homepage = (props) => {
           openNewCompany={props.openNewCompany}
           handleNewCompClose={props.handleNewCompClose}
           newCompanySave={props.newCompanySave}
+          longevity="Pevná dlouhodobá"
           move={props.move}
         />
         <div className="tableWithTitle">
@@ -84,6 +83,7 @@ const Homepage = (props) => {
             openNewCompany={props.openNewCompany}
             handleNewCompClose={props.handleNewCompClose}
             newCompanySave={props.newCompanySave}
+            longevity="Plovoucí krátkodobá"
             move={props.move}
           />
         </div>

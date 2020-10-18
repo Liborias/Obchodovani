@@ -94,18 +94,61 @@ export default function AddTransactionModal(props) {
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="formDialogTitle">{props.option === "new" ? "Nový obchod" : editOption}</DialogTitle>
+        <DialogTitle id="formDialogTitle">{
+          editOption === "new" ?
+            "Nová pozice" :
+            editOption === "split" ?
+              "Rozdělení pozice" :
+              editOption === "edit" ?
+                "Editace pozice" :
+                editOption === "move" ?
+                  "Přesun pozice" :
+                  "Prodej pozice"
+        }</DialogTitle>
         <DialogContent>
 
-          {editOption === "new" ? <div ></div> : <div className="radioButtons">
+          <div className="radioButtons">
             <FormControl component="fieldset">
               <RadioGroup aria-label="whatToDo" name="whatToDo1" value={radiButtonValue} row onChange={changeRadiobutton}>
-                <FormControlLabel value="Prodej" control={<Radio />} label="Prodat" control={<Radio color="primary" onChange={(e) => setEditOption(e.target.value)} />} />
-                <FormControlLabel value="Rozdělení pozice" control={<Radio />} label="Rozdělit" control={<Radio color="primary" onChange={(e) => setEditOption(e.target.value)} />} />
-                <FormControlLabel value="Editace pozice" control={<Radio />} label="Editovat" control={<Radio color="primary" onChange={(e) => setEditOption(e.target.value)} />} />
+                <FormControlLabel
+                  value="new"
+                  control={<Radio />}
+                  label="Nová pozice"
+                  control={<Radio
+                    color="primary"
+                    onChange={(e) => { setEditOption(e.target.value); setNewRow(defaultRow) }}
+                  />}
+                />
+                <FormControlLabel
+                  value="sell"
+                  control={<Radio />}
+                  label="Prodat"
+                  control={<Radio
+                    color="primary"
+                    onChange={(e) => { setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
+                  />}
+                />
+                <FormControlLabel
+                  value="split"
+                  control={<Radio />}
+                  label="Rozdělit"
+                  control={<Radio
+                    color="primary"
+                    onChange={(e) => { setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
+                  />}
+                />
+                <FormControlLabel
+                  value="edit"
+                  control={<Radio />}
+                  label="Editovat"
+                  control={<Radio
+                    color="primary"
+                    onChange={(e) => { setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
+                  />}
+                />
               </RadioGroup>
             </FormControl>
-          </div>}
+          </div>
 
           <div className="tradeSelectors" >
             <div className="particularSelector">
