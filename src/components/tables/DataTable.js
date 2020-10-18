@@ -26,7 +26,9 @@ export default function DataTable(props) {
                 {
                     editedRow?.length > 1 ?
                         <Button color="primary" onClick={() => setMovePosition(true)}>Přesunout</Button> :
-                        <Button color="primary" disabled={editedRow.length === 0} onClick={() => setOpen(true)}>Upravit</Button>
+                        editedRow?.length < 1 ?
+                            <Button color="primary" onClick={() => setOpen(true)}>Nová pozice</Button> :
+                            <Button color="primary" onClick={() => setOpen(true)}>Upravit</Button>
                 }
             </div>
 
@@ -49,7 +51,7 @@ export default function DataTable(props) {
                 handleNewCompClose={props.handleNewCompClose}
                 newCompanySave={props.newCompanySave}
                 initialNewRow={editedRow.length === 1 ? editedRow[0] : undefined}
-                option="Editace pozice"
+                option={editedRow === [] ? "Editace pozice" : "new"}
             />}
             {openMovePosition && <MovePosition
 
