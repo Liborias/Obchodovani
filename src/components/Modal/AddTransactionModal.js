@@ -124,6 +124,7 @@ export default function AddTransactionModal(props) {
                 <FormControlLabel
                   value="sell"
                   control={<Radio />}
+                  disabled={editOption === "new" && props.initialNewRow === "new"}
                   label="Prodat"
                   control={<Radio
                     color="primary"
@@ -133,6 +134,7 @@ export default function AddTransactionModal(props) {
                 <FormControlLabel
                   value="split"
                   control={<Radio />}
+                  disabled={editOption === "new" && props.initialNewRow === "new"}
                   label="Rozdělit"
                   control={<Radio
                     color="primary"
@@ -142,6 +144,7 @@ export default function AddTransactionModal(props) {
                 <FormControlLabel
                   value="edit"
                   control={<Radio />}
+                  disabled={editOption === "new" && props.initialNewRow === "new"}
                   label="Editovat"
                   control={<Radio
                     color="primary"
@@ -316,7 +319,7 @@ export default function AddTransactionModal(props) {
                     type="number"
                     value={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
                     min="0"
-                    max={props.initialNewRow.amount}
+                    max={editOption !== "new" ? props.initialNewRow.amount : 0}
                     fullWidth
                     onChange={(e) => {
 
