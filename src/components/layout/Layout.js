@@ -23,9 +23,11 @@ const rows = [
     longevity: "Plovoucí krátkodobá",
     freeRide: false,
     freeRideLabel: "NE",
-    note: "Zeptat se Jiřky: jak vyčistit input při přepnutí, jak omezit hodnoty na max a min, když tyto atributy nefungují",
+    note: "Zeptat se Jiřky: jak vyčistit input při přepnutí, jak omezit hodnoty na max a min, když tyto atributy nefungují, proč mi nefunguje rovnice na auto zapnutí freeRide, formát data",
     isSold: true,
-    soldDate: ""
+    soldDate: "",
+    vendorsChargeBuy: 10.5,
+    vendorsChargeSell: 0
   },
   {
     id: 2,
@@ -40,7 +42,9 @@ const rows = [
     freeRideLabel: "NE",
     note: "Zkušební transakce",
     isSold: false,
-    soldDate: ""
+    soldDate: "",
+    vendorsChargeBuy: 10.5,
+    vendorsChargeSell: 0
   },
 ];
 

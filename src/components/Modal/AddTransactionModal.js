@@ -35,7 +35,9 @@ export default function AddTransactionModal(props) {
     freeRideLabel: "NE",
     note: "",
     isSold: false,
-    soldDate: ""
+    soldDate: "",
+    vendorsChargeBuy: 0,
+    vendorsChargeSell: 0
 
   };
 
@@ -43,6 +45,9 @@ export default function AddTransactionModal(props) {
   const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
   const [secondRow, setSecondRow] = useState(newRow);
   const [editOption, setEditOption] = useState(props.option);
+  // const wholeBuyPrice = (newRow.stockPrice * props.initialNewRow.amount) + props.initialNewRow.vendorsChargeBuy;
+  // const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow.vendorsChargeSell;
+
 
 
 
@@ -93,6 +98,10 @@ export default function AddTransactionModal(props) {
     newRow.freeRide ? setNewRow({ ...newRow, freeRideLabel: "ANO" }) : setNewRow({ ...newRow, freeRideLabel: "NE" });
   };
 
+  // const compareFreeride = () => {
+  //   wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true ? setNewRow({ ...newRow, freeRide: true }) : setNewRow({ ...newRow, freeRide: false });
+  // };
+
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
@@ -114,7 +123,6 @@ export default function AddTransactionModal(props) {
               <RadioGroup aria-label="whatToDo" name="whatToDo1" value={radiButtonValue} row onChange={changeRadiobutton}>
                 <FormControlLabel
                   value="new"
-                  control={<Radio />}
                   label="Nová pozice"
                   control={<Radio
                     color="primary"
@@ -123,7 +131,6 @@ export default function AddTransactionModal(props) {
                 />
                 <FormControlLabel
                   value="sell"
-                  control={<Radio />}
                   disabled={editOption === "new" && props.initialNewRow === "new"}
                   label="Prodat"
                   control={<Radio
@@ -133,7 +140,6 @@ export default function AddTransactionModal(props) {
                 />
                 <FormControlLabel
                   value="split"
-                  control={<Radio />}
                   disabled={editOption === "new" && props.initialNewRow === "new"}
                   label="Rozdělit"
                   control={<Radio
@@ -143,7 +149,6 @@ export default function AddTransactionModal(props) {
                 />
                 <FormControlLabel
                   value="edit"
-                  control={<Radio />}
                   disabled={editOption === "new" && props.initialNewRow === "new"}
                   label="Editovat"
                   control={<Radio
@@ -359,7 +364,10 @@ export default function AddTransactionModal(props) {
                         fullWidth
                         onChange={(e) => {
                           setSecondRow({ ...secondRow, sellPrice: e.target.value });
-                          (secondRow.amount * secondRow.sellPrice >= newRow.stockPrice * props.initialNewRow.amount) ? setNewRow({ ...newRow, freeRide: true }) : setNewRow({ ...newRow, freeRide: false })
+
+                          // secondRow &&
+                          //   compareFreeride();
+
                         }}
                       />
                     </div>
