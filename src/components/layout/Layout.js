@@ -4,12 +4,6 @@ import "./Layout.css";
 import Homepage from "../homepage/Homepage";
 import Trading from "../trading/Trading";
 
-/*
-zadáním nové společnosti se rovnou vyplní políčka
-přidat switcher pro free ride
-přidat datum
-nezobrazovat ID
-*/
 
 const rows = [
   {
@@ -97,7 +91,6 @@ const Layout = () => {
     } else {
       setDataRows([...dataRows, newRow]);
     }
-    //setOpen(false);
   };
 
 

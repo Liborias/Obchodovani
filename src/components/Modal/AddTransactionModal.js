@@ -26,9 +26,9 @@ export default function AddTransactionModal(props) {
     id: Math.round(Math.random() * 1000000000),
     companyName: "",
     shortcut: "",
-    amount: "",
-    stockPrice: "",
-    sellPrice: "",
+    amount: 0,
+    stockPrice: 0,
+    sellPrice: 0,
     buyDate: "",
     longevity: "",
     freeRide: false,
@@ -45,8 +45,8 @@ export default function AddTransactionModal(props) {
   const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
   const [secondRow, setSecondRow] = useState(newRow);
   const [editOption, setEditOption] = useState(props.option);
-  // const wholeBuyPrice = (newRow.stockPrice * props.initialNewRow.amount) + props.initialNewRow.vendorsChargeBuy;
-  // const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow.vendorsChargeSell;
+  const wholeBuyPrice = (props.initialNewRow.stockPrice * props.initialNewRow.amount) + props.initialNewRow.vendorsChargeBuy;
+  const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow.vendorsChargeSell;
 
 
 
@@ -98,9 +98,9 @@ export default function AddTransactionModal(props) {
     newRow.freeRide ? setNewRow({ ...newRow, freeRideLabel: "ANO" }) : setNewRow({ ...newRow, freeRideLabel: "NE" });
   };
 
-  // const compareFreeride = () => {
-  //   wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true ? setNewRow({ ...newRow, freeRide: true }) : setNewRow({ ...newRow, freeRide: false });
-  // };
+  const compareFreeride = () => {
+    wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true ? setNewRow({ ...newRow, freeRide: true }) : setNewRow({ ...newRow, freeRide: false });
+  };
 
   return (
     <div>
@@ -322,16 +322,19 @@ export default function AddTransactionModal(props) {
                     label={editOption === "split" ? "Přesunout akcií" : "Prodaných akcií"}
                     disabled={editOption === "new"}
                     type="number"
-                    value={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
+                    defaultValue={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
+                    //value={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
                     min="0"
                     max={editOption !== "new" ? props.initialNewRow.amount : 0}
                     fullWidth
                     onChange={(e) => {
 
-                      setSecondRow({ ...secondRow, amount: e.target.value, isSold: true });
-                      setNewRow({
-                        ...newRow, amount: (props.initialNewRow.amount - e.target.value)
-                      })
+                      setSecondRow({ ...secondRow, amount: e.target.value });
+                      setNewRow({ ...newRow, amount: (props.initialNewRow.amount - e.target.value) });
+                      compareFreeride();
+                      console.log(wholeBuyPrice); console.log(wholeSellPrice);
+
+
                     }}
                   />
                 </div>
@@ -364,9 +367,8 @@ export default function AddTransactionModal(props) {
                         fullWidth
                         onChange={(e) => {
                           setSecondRow({ ...secondRow, sellPrice: e.target.value });
-
-                          // secondRow &&
-                          //   compareFreeride();
+                          compareFreeride();
+                          console.log(wholeBuyPrice); console.log(wholeSellPrice);
 
                         }}
                       />
