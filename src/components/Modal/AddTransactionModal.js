@@ -41,14 +41,13 @@ export default function AddTransactionModal(props) {
 
   };
 
-
   const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
   const [secondRow, setSecondRow] = useState(newRow);
   const [editOption, setEditOption] = useState(props.option);
-  const wholeBuyPrice = (props.initialNewRow.stockPrice * props.initialNewRow.amount) + props.initialNewRow.vendorsChargeBuy;
-  const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow.vendorsChargeSell;
+  const wholeBuyPrice = (props.initialNewRow?.stockPrice * props.initialNewRow?.amount) + props.initialNewRow?.vendorsChargeBuy;
+  const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow?.vendorsChargeSell;
 
-
+  console.log(wholeBuyPrice); console.log(wholeSellPrice);
 
 
   const validateTransaction = () => {
@@ -99,23 +98,33 @@ export default function AddTransactionModal(props) {
   };
 
   const compareFreeride = () => {
-    wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true ? setNewRow({ ...newRow, freeRide: true }) : setNewRow({ ...newRow, freeRide: false });
+    console.log("compareFree ride", wholeSellPrice, wholeBuyPrice);
+    if (wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true) {
+
+      setNewRow({ ...newRow, freeRide: true });
+      console.log("if true", { ...newRow, freeRide: true });
+    } else {
+      console.log("if false", { ...newRow, freeRide: false });
+      setNewRow({ ...newRow, freeRide: false });
+    }
   };
 
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="formDialogTitle">{
-          editOption === "new" ?
-            "Nová pozice" :
-            editOption === "split" ?
-              "Rozdělení pozice" :
-              editOption === "edit" ?
-                "Editace pozice" :
-                editOption === "move" ?
-                  "Přesun pozice" :
-                  "Prodej pozice"
-        }</DialogTitle>
+        <DialogTitle id="formDialogTitle">
+          {/* Použij swicth (struktura js podobně jako if-else - use google) */}
+          {
+            editOption === "new" ?
+              "Nová pozice" :
+              editOption === "split" ?
+                "Rozdělení pozice" :
+                editOption === "edit" ?
+                  "Editace pozice" :
+                  editOption === "move" ?
+                    "Přesun pozice" :
+                    "Prodej pozice"
+          }</DialogTitle>
         <DialogContent>
 
           <div className="radioButtons">
@@ -322,18 +331,17 @@ export default function AddTransactionModal(props) {
                     label={editOption === "split" ? "Přesunout akcií" : "Prodaných akcií"}
                     disabled={editOption === "new"}
                     type="number"
-                    defaultValue={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
+                    defaultValue={editOption !== "new" ? (props.initialNewRow?.amount - newRow.amount) : secondRow.amount}
                     //value={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
-                    min="0"
+                    min={0}
                     max={editOption !== "new" ? props.initialNewRow.amount : 0}
                     fullWidth
                     onChange={(e) => {
 
                       setSecondRow({ ...secondRow, amount: e.target.value });
-                      setNewRow({ ...newRow, amount: (props.initialNewRow.amount - e.target.value) });
+                      setNewRow({ ...newRow, amount: (props.initialNewRow?.amount - e.target.value) });
                       compareFreeride();
-                      console.log(wholeBuyPrice); console.log(wholeSellPrice);
-
+                      //XJB todo
 
                     }}
                   />
