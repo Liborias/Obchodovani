@@ -16,10 +16,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
+import moment from 'moment';
 
 
 
 export default function AddTransactionModal(props) {
+
+  const getCurrentDate = (separator = '') => {
+
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${year}${separator}${month < 10 ? `0${month}` : `${month}`}${separator}${date}`;
+  };
+
 
   const [isTransactionValid, setTransactionValidity] = useState(false);
   const defaultRow = {
@@ -29,13 +41,13 @@ export default function AddTransactionModal(props) {
     amount: 0,
     stockPrice: 0,
     sellPrice: 0,
-    buyDate: "",
+    buyDate: moment().format("yyyy-MM-DD"),
     longevity: "",
     freeRide: false,
     freeRideLabel: "NE",
     note: "",
     isSold: false,
-    soldDate: "",
+    soldDate: undefined,
     vendorsChargeBuy: 0,
     vendorsChargeSell: 0
 
@@ -109,22 +121,35 @@ export default function AddTransactionModal(props) {
     }
   };
 
+
+  let titleText = null;
+  switch (editOption) {
+    case "new":
+      titleText = "Nová pozice";
+      break;
+    case "split":
+      titleText = "Rozdělení pozice";
+      break;
+    case "edit":
+      titleText = "Editace pozice";
+      break;
+    case "move":
+      titleText = "Přesun pozice";
+      break;
+    case "sell":
+      titleText = "Prodej pozice";
+      break;
+    default:
+      titleText = "Nová pozice";
+  };
+
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="formDialogTitle">
           {/* Použij swicth (struktura js podobně jako if-else - use google) */}
-          {
-            editOption === "new" ?
-              "Nová pozice" :
-              editOption === "split" ?
-                "Rozdělení pozice" :
-                editOption === "edit" ?
-                  "Editace pozice" :
-                  editOption === "move" ?
-                    "Přesun pozice" :
-                    "Prodej pozice"
-          }</DialogTitle>
+          {titleText}
+        </DialogTitle>
         <DialogContent>
 
           <div className="radioButtons">
@@ -297,7 +322,7 @@ export default function AddTransactionModal(props) {
                         label="Datum prodeje"
                         type="date"
                         disabled={editOption === "new" || editOption === "split"}
-                        value={newRow.soldDate}
+                        value={editOption === "sell" ? moment().format("yyyy-MM-DD") : newRow.soldDate}
                         className={classes.textField}
                         InputLabelProps={{
                           shrink: true,
@@ -441,4 +466,3 @@ export default function AddTransactionModal(props) {
   );
 
 }
-
