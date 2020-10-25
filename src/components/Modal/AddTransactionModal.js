@@ -22,16 +22,6 @@ import moment from 'moment';
 
 export default function AddTransactionModal(props) {
 
-  const getCurrentDate = (separator = '') => {
-
-    let newDate = new Date()
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    let year = newDate.getFullYear();
-
-    return `${year}${separator}${month < 10 ? `0${month}` : `${month}`}${separator}${date}`;
-  };
-
 
   const [isTransactionValid, setTransactionValidity] = useState(false);
   const defaultRow = {
@@ -109,6 +99,11 @@ export default function AddTransactionModal(props) {
     newRow.freeRide ? setNewRow({ ...newRow, freeRideLabel: "ANO" }) : setNewRow({ ...newRow, freeRideLabel: "NE" });
   };
 
+  const saveAndClose = () => {
+    props.handleSave(newRow);
+    props.handleClose();
+  };
+
   const compareFreeride = () => {
     console.log("compareFree ride", wholeSellPrice, wholeBuyPrice);
     if (wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true) {
@@ -141,6 +136,34 @@ export default function AddTransactionModal(props) {
       break;
     default:
       titleText = "Nová pozice";
+  };
+  //Tento switch bude určen pro tlačítko "uložit" podle stavu editOption vykoná: 
+  //new a default - přidá new row do rows v layoutu, (už umíme)
+  //split - rozdělí na dvě pozice, zachová starou s pozměněným počtem akcií a vytvoří novou s novým počtem a longevitou
+  //edit - uloží upravenou stávající pozici, (už umíme)
+  //move - neudělá nic, na to máme jiný modál, takže zatím prázdné (reálné move by měl rozpoznat, že už existuje pozice se steným názvem)
+  //sell - 
+  const saveSpecialy = () => {
+    switch (editOption) {
+      case "new":
+        saveAndClose();
+        break;
+      case "split":
+        console.log("Ukládám rozdělené");
+        break;
+      case "edit":
+        setFreerideLabel();
+        saveAndClose();
+        break;
+      case "move":
+        console.log("Přesouvám");
+        break;
+      case "sell":
+        console.log("Ukládám prodej");
+        break;
+      default:
+        saveAndClose();
+    };
   };
 
   return (
@@ -448,6 +471,13 @@ export default function AddTransactionModal(props) {
         <DialogActions>
           <Button onClick={props.handleClose} color="primary">
             Zavřít
+          </Button>          <Button type="submit" disabled={!isTransactionValid} onClick={() => {
+            saveSpecialy();
+
+          }
+          }
+            color="primary">
+            Uložit pracovní
           </Button>
           <Button type="submit" disabled={!isTransactionValid} onClick={() => {
             setFreerideLabel();

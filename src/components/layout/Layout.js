@@ -83,17 +83,42 @@ const Layout = () => {
   //   setOpen(false);
   // };
 
+
+  /*
+    const handleSave2 = (newRow) => {
+      const hledaneID = dataRows.findIndex((element) => element.id === newRow.id);
+      const rowsWithoutSelected = dataRows.filter((element) => element.id !== newRow.id);
+      if (hledaneID !== -1) {
+        const joinedTogether = rowsWithoutSelected?.map(item =>
+          item.shortcut === newRow.shortcut &&
+            item.stockPrice === newRow.stockPrice &&
+            item.buyDate === newRow.buyDate &&
+            item.longevity === newRow.longevity &&
+            item.freeRide === newRow.freeRide ? { ...item, amount: newRow.amount } : item);
+        setDataRows(joinedTogether);
+      } else {
+        const updated = dataRows?.map(item => item.id === newRow.id ? newRow : item);
+        setDataRows(updated); }  {
+        setDataRows([...dataRows, newRow]);
+      };
+  
+    };
+  */
+
   const handleSave = (newRow) => {
     const hledaneID = dataRows.findIndex((element) => element.id === newRow.id);
+    const rowsWithoutSelected = dataRows.filter((element) => element.id !== newRow.id);
     if (hledaneID !== -1) {
       const updated = dataRows?.map(item => item.id === newRow.id ? newRow : item);
       setDataRows(updated);
     } else {
       setDataRows([...dataRows, newRow]);
-    }
+    };
+
   };
 
-
+  // mělo by rozpoznat zda neexistuje pozice se stejnou zkratkou, stejným datem, stejnou cenou a stejnou pozicí. 
+  //V takovém případě změnit 
   const move = (selected, newPosition) => {
     const selectedIds = selected?.map((item) => item.id);
     const updatedPosition = dataRows?.map((item) => selectedIds.includes(item.id) ? { ...item, longevity: newPosition } : item);
