@@ -17,6 +17,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import moment from 'moment';
+import NumberField from "../helpers/NumberField";
 
 
 
@@ -34,7 +35,7 @@ export default function AddTransactionModal(props) {
     buyDate: moment().format("yyyy-MM-DD"),
     longevity: "",
     freeRide: false,
-    freeRideLabel: "NE",
+    // freeRideLabel: "NE",
     note: "",
     isSold: false,
     soldDate: undefined,
@@ -44,7 +45,7 @@ export default function AddTransactionModal(props) {
   };
 
   const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
-  const [secondRow, setSecondRow] = useState(newRow);
+  const [secondRow, setSecondRow] = useState({ id: Math.round(Math.random() * 1000000000), amount: 0, sellPrice: 0, freeRide: false });
   const [editOption, setEditOption] = useState(props.option);
   const wholeBuyPrice = (props.initialNewRow?.stockPrice * props.initialNewRow?.amount) + props.initialNewRow?.vendorsChargeBuy;
   const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow?.vendorsChargeSell;
@@ -80,11 +81,6 @@ export default function AddTransactionModal(props) {
 
   const classes = useStyles();
 
-
-  const [radiButtonValue, setRadiButtonValue] = useState(editOption);
-
-  const changeRadiobutton = (event) => setRadiButtonValue(event.target.value);
-
   const handleChange = (event) => {
     const freeRideLabel = event.target.checked ? "ANO" : "NE";
     setNewRow({ ...newRow, [event.target.name]: event.target.checked, freeRideLabel: freeRideLabel });
@@ -105,17 +101,16 @@ export default function AddTransactionModal(props) {
   };
 
   const compareFreeride = () => {
-    console.log("compareFree ride", wholeSellPrice, wholeBuyPrice);
-    if (wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true) {
-
-      setNewRow({ ...newRow, freeRide: true });
-      console.log("if true", { ...newRow, freeRide: true });
-    } else {
-      console.log("if false", { ...newRow, freeRide: false });
-      setNewRow({ ...newRow, freeRide: false });
-    }
+    /* console.log("compareFree ride", wholeSellPrice, wholeBuyPrice);
+     if (wholeSellPrice >= wholeBuyPrice && secondRow.isSold === true) {
+ 
+       setNewRow({ ...newRow, freeRide: true });
+       console.log("if true", { ...newRow, freeRide: true });
+     } else {
+       console.log("if false", { ...newRow, freeRide: false });
+       setNewRow({ ...newRow, freeRide: false });
+     }*/
   };
-
 
   let titleText = null;
   switch (editOption) {
@@ -170,20 +165,19 @@ export default function AddTransactionModal(props) {
     <div>
       <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="formDialogTitle">
-          {/* Použij swicth (struktura js podobně jako if-else - use google) */}
           {titleText}
         </DialogTitle>
         <DialogContent>
 
           <div className="radioButtons">
             <FormControl component="fieldset">
-              <RadioGroup aria-label="whatToDo" name="whatToDo1" value={radiButtonValue} row onChange={changeRadiobutton}>
+              <RadioGroup aria-label="whatToDo" name="whatToDo1" value={editOption} row>
                 <FormControlLabel
                   value="new"
                   label="Nová pozice"
                   control={<Radio
                     color="primary"
-                    onChange={(e) => { setEditOption(e.target.value); setNewRow(defaultRow); setSecondRow(defaultRow) }}
+                    onChange={(e) => { console.log("radio onCHange - new", e.target.value); setEditOption(e.target.value); setNewRow(defaultRow); setSecondRow(defaultRow) }}
                   />}
                 />
                 <FormControlLabel
@@ -192,7 +186,7 @@ export default function AddTransactionModal(props) {
                   label="Prodat"
                   control={<Radio
                     color="primary"
-                    onChange={(e) => { setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
+                    onChange={(e) => { console.log("radio onCHange - prodat", e.target.value); setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
                   />}
                 />
                 <FormControlLabel
@@ -305,15 +299,15 @@ export default function AddTransactionModal(props) {
 
                 <div className="amountAndPrice">
                   <div className="amount">
-                    <TextField
+                    <NumberField
                       margin="dense"
                       label="Množství akcií"
                       disabled={editOption === "sell" || editOption === "split"}
                       value={newRow.amount}
-                      type="number"
+                      min={0}
                       fullWidth
-                      onChange={(e) => {
-                        setNewRow({ ...newRow, amount: e.target.value });
+                      onChange={(newValue) => {
+                        setNewRow({ ...newRow, amount: newValue });
                       }}
                     />
                   </div>
@@ -374,21 +368,20 @@ export default function AddTransactionModal(props) {
                 }
 
                 <div className="amount">
-                  <TextField
+                  <NumberField
                     margin="dense"
                     label={editOption === "split" ? "Přesunout akcií" : "Prodaných akcií"}
                     disabled={editOption === "new"}
-                    type="number"
-                    defaultValue={editOption !== "new" ? (props.initialNewRow?.amount - newRow.amount) : secondRow.amount}
-                    //value={editOption !== "new" ? (props.initialNewRow.amount - newRow.amount) : secondRow.amount}
+                    value={secondRow.amount}
                     min={0}
                     max={editOption !== "new" ? props.initialNewRow.amount : 0}
                     fullWidth
-                    onChange={(e) => {
-
-                      setSecondRow({ ...secondRow, amount: e.target.value });
-                      setNewRow({ ...newRow, amount: (props.initialNewRow?.amount - e.target.value) });
-                      compareFreeride();
+                    onChange={(newValue) => {
+                      console.log("newValue", newValue);
+                      const secRowAmount = props.initialNewRow?.amount - parseInt(newValue);
+                      setSecondRow({ ...secondRow, amount: newValue });
+                      setNewRow({ ...newRow, amount: secRowAmount });
+                      //  compareFreeride(); - need to be update
                       //XJB todo
 
                     }}
