@@ -18,6 +18,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import moment from 'moment';
 import NumberField from "../helpers/NumberField";
+import { randomId } from "../helpers/helpFce";
 
 
 
@@ -26,14 +27,14 @@ export default function AddTransactionModal(props) {
 
   const [isTransactionValid, setTransactionValidity] = useState(false);
   const defaultRow = {
-    id: Math.round(Math.random() * 1000000000),
+    id: randomId(),
     companyName: "",
     shortcut: "",
     amount: 0,
     stockPrice: 0,
     sellPrice: 0,
     buyDate: moment().format("yyyy-MM-DD"),
-    longevity: "",
+    longevity: "plovouci_pozice",
     freeRide: false,
     // freeRideLabel: "NE",
     note: "",
@@ -45,7 +46,7 @@ export default function AddTransactionModal(props) {
   };
 
   const [newRow, setNewRow] = useState(props.initialNewRow || defaultRow);
-  const [secondRow, setSecondRow] = useState({ id: Math.round(Math.random() * 1000000000), amount: 0, sellPrice: 0, freeRide: false });
+  const [secondRow, setSecondRow] = useState({ id: randomId(), amount: 0, sellPrice: 0, freeRide: false, longevity: props?.initialNewRow?.longevity || defaultRow.longevity });
   const [editOption, setEditOption] = useState(props.option);
   const wholeBuyPrice = (props.initialNewRow?.stockPrice * props.initialNewRow?.amount) + props.initialNewRow?.vendorsChargeBuy;
   const wholeSellPrice = (secondRow.amount * secondRow.sellPrice) - props.initialNewRow?.vendorsChargeSell;
@@ -80,6 +81,8 @@ export default function AddTransactionModal(props) {
   }));
 
   const classes = useStyles();
+
+
 
   const handleChange = (event) => {
     const freeRideLabel = event.target.checked ? "ANO" : "NE";
@@ -177,7 +180,7 @@ export default function AddTransactionModal(props) {
                   label="Nová pozice"
                   control={<Radio
                     color="primary"
-                    onChange={(e) => { console.log("radio onCHange - new", e.target.value); setEditOption(e.target.value); setNewRow(defaultRow); setSecondRow(defaultRow) }}
+                    onChange={(e) => { setEditOption(e.target.value); setNewRow(defaultRow); setSecondRow({ ...defaultRow, id: randomId() }) }}
                   />}
                 />
                 <FormControlLabel
@@ -186,7 +189,7 @@ export default function AddTransactionModal(props) {
                   label="Prodat"
                   control={<Radio
                     color="primary"
-                    onChange={(e) => { console.log("radio onCHange - prodat", e.target.value); setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
+                    onChange={(e) => { setEditOption(e.target.value); setNewRow(props.initialNewRow) }}
                   />}
                 />
                 <FormControlLabel
@@ -489,3 +492,5 @@ export default function AddTransactionModal(props) {
   );
 
 }
+//todo s Jiřkou FreeRide, todo s Jiřkou vytvořit komponentu
+//todo konečné nastavení hodnot v secondRow viz {...newRow ...secondRow},
