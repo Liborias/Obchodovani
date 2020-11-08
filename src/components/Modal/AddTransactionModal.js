@@ -19,6 +19,7 @@ import FormControl from '@material-ui/core/FormControl';
 import moment from 'moment';
 import NumberField from "../helpers/NumberField";
 import { randomId } from "../helpers/helpFce";
+import RadioButtonsMenu from "../helpers/RadioButtonsMenu";
 
 
 
@@ -173,6 +174,14 @@ export default function AddTransactionModal(props) {
         <DialogContent>
 
           <div className="radioButtons">
+            {/* tohle mi padá */}
+            {/* <RadioButtonsMenu
+              editOption={editOption}
+              setEditOption={setEditOption}
+              setNewRow={setNewRow}
+              setSecondRow={setSecondRow}
+              defaultRow={defaultRow}
+            /> */}
             <FormControl component="fieldset">
               <RadioGroup aria-label="whatToDo" name="whatToDo1" value={editOption} row>
                 <FormControlLabel
@@ -494,3 +503,4 @@ export default function AddTransactionModal(props) {
 }
 //todo s Jiřkou FreeRide, todo s Jiřkou vytvořit komponentu
 //todo konečné nastavení hodnot v secondRow viz {...newRow ...secondRow},
+// při pokusu o vytvoření komponenty s radiobuttony to padá.
